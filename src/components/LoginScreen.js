@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     height: 51,
     borderRadius: 24,
     backgroundColor: "#FF6C00",
-    fontFamily: "Roboto-Black",
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     alignItems: "center",
     marginLeft: "auto",
