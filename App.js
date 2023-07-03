@@ -4,7 +4,7 @@ import PostScreen from "./src/components/PostsScreen";
 import RegistrationScreen from "./src/components/RegistrationScreen";
 import LoginScreen from "./src/components/LoginScreen";
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
