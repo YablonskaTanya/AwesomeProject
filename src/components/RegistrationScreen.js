@@ -8,28 +8,24 @@ import {
   TouchableOpacity,
 } from "react-native";
 import avatar from "../../assets/images/avatar.png";
-import add from "../../assets/images/add.png";
 import keyboard from "../../assets/images/keyboard.png";
-import union from "../../assets/images/union.png";
+import { AntDesign } from "@expo/vector-icons";
 
 export default RegistrationScreen = () => {
   return (
     <>
-      <View style={styles.avatarContainer}>
-        <View style={styles.avatarLogo}>
-          {/* <Image style={styles.tinyLogo} source={avatar} /> */}
-        </View>
-        <TouchableOpacity style={styles.addBtn}>
-          <Image style={styles.addImg} source={add} />
-        </TouchableOpacity>
-        <View style={styles.unionBtnContainer}>
-          <TouchableOpacity style={styles.unionBtn}>
-            {/* <Image style={styles.unionImg} source={union} /> */}
-          </TouchableOpacity>
-        </View>
-      </View>
-
       <View style={styles.container}>
+        <View style={styles.avatarContainer}>
+          <View style={styles.avatarLogo}>
+            {/* <Image style={styles.tinyLogo} source={avatar} /> */}
+          </View>
+          <TouchableOpacity style={styles.addBtn}>
+            <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
+          </TouchableOpacity>
+          {/* <TouchableOpacity style={styles.closeBtn}>
+            <AntDesign name="closecircleo" size={25} color="#E8E8E8" />
+          </TouchableOpacity> */}
+        </View>
         <Text style={styles.title}>Реєстрація</Text>
         <TextInput style={styles.input} placeholder="Логін" />
         <TextInput
@@ -68,66 +64,46 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     // bottom: 150,
-
     backgroundColor: "#fff",
-    width: 375,
-    height: 549,
-    marginLeft: 25,
-    marginRight: 25,
+    width: "100%",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
-    overflow: "hidden",
   },
-  avatarLogo: {
-    position: "absolute",
-    top: 320,
-    left: 150,
-    // top: 170,
 
+  avatarContainer: {
+    position: "absolute",
     backgroundColor: "#F6F6F6",
     width: 120,
     height: 120,
-
     borderRadius: 16,
-  },
-  avatarContainer: {
-    position: "absolute",
-    zIndex: 999,
+    // zIndex: 999,
+    top: -50,
+    left: 150,
   },
   addBtn: {
     position: "absolute",
-    top: 400,
-    left: 255,
+    bottom: 10,
+    right: -10,
   },
-  unionBtn: {
+  closeBtn: {
     position: "absolute",
-    top: "30%",
-    left: "30%",
+    bottom: 10,
+    right: -10,
+    backgroundColor: "#fff",
+    borderRadius: "50%",
   },
-  // unionBtnContainer: {
-  //   position: "absolute",
-  //   top: 400,
-  //   top: 250,
-  //   left: 255,
-  //   width: 25,
-  //   height: 25,
-  //   borderRadius: "50%",
-  //   border: 2,
-  //   borderColor: "#E8E8E8",
-  //   backgroundColor: "#FFFFFF",
-  // },
   title: {
     textAlign: "center",
     marginTop: 100,
     marginBottom: 32,
     color: "#212121",
-    fontFamily: "Roboto-Black",
+    fontFamily: "Roboto-Regular",
     fontSize: 30,
     fontWeight: 500,
   },
 
   input: {
-    fontFamily: "Roboto-Black",
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     width: 343,
     height: 50,
@@ -137,6 +113,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: "#E8E8E8",
     backgroundColor: "#F6F6F6",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 
   button: {
@@ -144,7 +122,7 @@ const styles = StyleSheet.create({
     height: 51,
     borderRadius: 24,
     backgroundColor: "#FF6C00",
-    fontFamily: "Roboto-Black",
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     alignItems: "center",
     marginLeft: "auto",
@@ -159,12 +137,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginTop: 16,
+    marginBottom: 50,
     gap: 5,
   },
   showBtn: {
     position: "absolute",
     top: 33,
-    right: 30,
+    right: 60,
   },
   keyboard: {
     flex: 2,

@@ -52,26 +52,22 @@ const styles = StyleSheet.create({
     // bottom: 90,
 
     backgroundColor: "#fff",
-    width: 375,
-    height: 489,
-    marginLeft: 25,
-    marginRight: 25,
+    width: "100%",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
-    overflow: "hidden",
   },
   title: {
     textAlign: "center",
     marginTop: 32,
     marginBottom: 32,
     color: "#212121",
-    fontFamily: "Roboto-Black",
+    fontFamily: "Roboto-Regular",
     fontSize: 30,
     fontWeight: 500,
   },
 
   input: {
-    fontFamily: "Roboto-Black",
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     width: 343,
     height: 50,
@@ -81,12 +77,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: "#E8E8E8",
     backgroundColor: "#F6F6F6",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 
-  btn: {
-    fontFamily: "Roboto-Black",
-    fontSize: 30,
-  },
   button: {
     width: 343,
     height: 51,
@@ -107,12 +101,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginTop: 16,
+    marginBottom: 180,
     gap: 5,
   },
   showBtn: {
     position: "absolute",
     top: 33,
-    right: 30,
+    right: 60,
   },
   keyboard: {
     flex: 2,

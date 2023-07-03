@@ -7,7 +7,7 @@ import LoginScreen from "./src/components/LoginScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    "Roboto-Black": require("./assets/fonts/Roboto-Black.ttf"),
+    "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
   });
   if (!fontsLoaded) {
     return null;
