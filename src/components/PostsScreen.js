@@ -1,5 +1,5 @@
 import { ImageBackground, StyleSheet, View } from "react-native";
-import ImageBG from "../../images/ImageBG.png";
+import ImageBG from "../../assets/images/ImageBG.png";
 
 export default PostScreen = () => {
   return (

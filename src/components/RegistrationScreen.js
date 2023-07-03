@@ -7,10 +7,10 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import avatar from "../../images/avatar.png";
-import add from "../../images/add.png";
-import keyboard from "../../images/keyboard.png";
-import union from "../../images/union.png";
+import avatar from "../../assets/images/avatar.png";
+import add from "../../assets/images/add.png";
+import keyboard from "../../assets/images/keyboard.png";
+import union from "../../assets/images/union.png";
 
 export default RegistrationScreen = () => {
   return (

@@ -8,8 +8,8 @@ import {
   View,
 } from "react-native";
 
-import add from "../../images/add.png";
-import keyboard from "../../images/keyboard.png";
+import add from "../../assets/images/add.png";
+import keyboard from "../../assets/images/keyboard.png";
 
 export default LoginScreen = () => {
   return (
