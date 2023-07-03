@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 
-import add from "../../assets/images/add.png";
 import keyboard from "../../assets/images/keyboard.png";
 
 export default LoginScreen = () => {
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
     marginBottom: 32,
     color: "#212121",
-    fontFamily: "Roboto-Regular",
+    fontFamily: "Roboto-Medium",
     fontSize: 30,
     fontWeight: 500,
   },

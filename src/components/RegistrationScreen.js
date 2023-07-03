@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 16,
-    // zIndex: 999,
     top: "-10%",
     left: "35%",
   },
