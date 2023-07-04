@@ -1,15 +1,23 @@
-import { ImageBackground, StyleSheet, View } from "react-native";
+import {
+  ImageBackground,
+  Keyboard,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import ImageBG from "../../assets/images/ImageBG.png";
 
 export default PostScreen = () => {
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={ImageBG}
-        resizeMode="cover"
-        style={styles.image}
-      ></ImageBackground>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={ImageBG}
+          resizeMode="cover"
+          style={styles.image}
+        ></ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

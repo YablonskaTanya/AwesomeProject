@@ -19,8 +19,8 @@ export default function App() {
   return (
     <>
       <PostScreen />
-      <RegistrationScreen />
-      {/* <LoginScreen /> */}
+      {/* <RegistrationScreen /> */}
+      <LoginScreen />
     </>
   );
 }

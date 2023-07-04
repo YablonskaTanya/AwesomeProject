@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -6,14 +7,26 @@ import {
   Button,
   Image,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import avatar from "../../assets/images/avatar.png";
-import keyboard from "../../assets/images/keyboard.png";
+
 import { AntDesign } from "@expo/vector-icons";
 
 export default RegistrationScreen = () => {
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onRegister = () => {
+    console.log(`${login}+ ${email} + ${password}`);
+  };
+
   return (
-    <>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
           <View style={styles.avatarLogo}>
@@ -27,19 +40,36 @@ export default RegistrationScreen = () => {
           </TouchableOpacity> */}
         </View>
         <Text style={styles.title}>Реєстрація</Text>
-        <TextInput style={styles.input} placeholder="Логін" />
-        <TextInput
-          style={styles.input}
-          placeholder="Адреса електронної пошти"
-        />
-        <View>
-          <TextInput style={styles.input} placeholder="Пароль" />
-          <TouchableOpacity style={styles.showBtn}>
-            <Text>Показати</Text>
-          </TouchableOpacity>
-        </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+        >
+          <TextInput
+            style={styles.input}
+            value={login}
+            onChangeText={setLogin}
+            placeholder="Логін"
+          />
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Адреса електронної пошти"
+          />
+          <View>
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              placeholder="Пароль"
+            />
 
-        <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.showBtn}>
+              <Text>Показати</Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
+        <TouchableOpacity style={styles.button} onPress={onRegister}>
           <Text style={styles.buttonText}>Зареєстуватися</Text>
         </TouchableOpacity>
         <View style={styles.linkContainer}>
@@ -49,8 +79,7 @@ export default RegistrationScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <View>{/* <Image style={styles.keyboard} source={keyboard} /> */}</View>
-    </>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -58,9 +87,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: "absolute",
+    // justifyContent: "flex-end",
     bottom: 0,
-    // bottom: 150,
-    backgroundColor: "#fff",
+    backgroundColor: "red",
+
     width: "100%",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
@@ -94,7 +124,6 @@ const styles = StyleSheet.create({
     color: "#212121",
     fontFamily: "Roboto-Medium",
     fontSize: 30,
-    fontWeight: 500,
   },
 
   input: {
@@ -132,19 +161,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginTop: 16,
-    marginBottom: 50,
+    marginBottom: 32,
     gap: 5,
   },
   showBtn: {
     position: "absolute",
     top: 33,
     right: 60,
-  },
-  keyboard: {
-    flex: 2,
-    position: "absolute",
-    bottom: 0,
-    left: 25,
-    right: 25,
   },
 });
