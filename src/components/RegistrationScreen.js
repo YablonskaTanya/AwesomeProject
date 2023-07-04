@@ -33,11 +33,7 @@ export default RegistrationScreen = () => {
           placeholder="Адреса електронної пошти"
         />
         <View>
-          <TextInput
-            style={styles.input}
-            placeholder="Пароль"
-            keyboardType="numeric"
-          />
+          <TextInput style={styles.input} placeholder="Пароль" />
           <TouchableOpacity style={styles.showBtn}>
             <Text>Показати</Text>
           </TouchableOpacity>
