@@ -22,78 +22,73 @@ export default RegistrationScreen = () => {
   const [password, setPassword] = useState("");
 
   const onRegister = () => {
-    console.log(`${login}+ ${email} + ${password}`);
+    console.log(`login: ${login}, email: ${email}, password: ${password}`);
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <View style={styles.avatarContainer}>
-          <View style={styles.avatarLogo}>
-            {/* <Image style={styles.tinyLogo} source={avatar} /> */}
-          </View>
-          <TouchableOpacity style={styles.addBtn}>
-            <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
-          </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.closeBtn}>
+    <View style={styles.formContainer}>
+      <View style={styles.avatarContainer}>
+        <View style={styles.avatarLogo}>
+          {/* <Image style={styles.tinyLogo} source={avatar} /> */}
+        </View>
+        <TouchableOpacity style={styles.addBtn}>
+          <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
+        </TouchableOpacity>
+        {/* <TouchableOpacity style={styles.closeBtn}>
             <AntDesign name="closecircleo" size={25} color="#E8E8E8" />
           </TouchableOpacity> */}
-        </View>
-        <Text style={styles.title}>Реєстрація</Text>
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-        >
+      </View>
+      <Text style={styles.title}>Реєстрація</Text>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      >
+        <TextInput
+          style={styles.input}
+          value={login}
+          onChangeText={setLogin}
+          placeholder="Логін"
+        />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Адреса електронної пошти"
+        />
+        <View>
           <TextInput
-            style={styles.input}
-            value={login}
-            onChangeText={setLogin}
-            placeholder="Логін"
+            style={[styles.input, styles.inputPad]}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            placeholder="Пароль"
           />
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Адреса електронної пошти"
-          />
-          <View>
-            <TextInput
-              style={styles.input}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              placeholder="Пароль"
-            />
 
-            <TouchableOpacity style={styles.showBtn}>
-              <Text>Показати</Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
-        <TouchableOpacity style={styles.button} onPress={onRegister}>
-          <Text style={styles.buttonText}>Зареєстуватися</Text>
-        </TouchableOpacity>
-        <View style={styles.linkContainer}>
-          <Text>Вже є акаунт?</Text>
-          <TouchableOpacity>
-            <Text>Увійти</Text>
+          <TouchableOpacity style={styles.showBtn}>
+            <Text>Показати</Text>
           </TouchableOpacity>
         </View>
+      </KeyboardAvoidingView>
+      <TouchableOpacity style={styles.button} onPress={onRegister}>
+        <Text style={styles.buttonText}>Зареєстуватися</Text>
+      </TouchableOpacity>
+      <View style={styles.linkContainer}>
+        <Text>Вже є акаунт?</Text>
+        <TouchableOpacity>
+          <Text>Увійти</Text>
+        </TouchableOpacity>
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: "absolute",
-    // justifyContent: "flex-end",
-    bottom: 0,
-    backgroundColor: "red",
-
+  formContainer: {
+    backgroundColor: "#fff",
     width: "100%",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
+
+    justifyContent: "flex-end",
   },
 
   avatarContainer: {
@@ -140,7 +135,9 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
-
+  inputPad: {
+    paddingRight: 120,
+  },
   button: {
     width: 343,
     height: 51,

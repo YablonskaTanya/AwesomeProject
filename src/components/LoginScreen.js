@@ -19,64 +19,58 @@ export default LoginScreen = () => {
   const [password, setPassword] = useState("");
 
   const onLogin = () => {
-    console.log(`${email} + ${password}`);
+    console.log(`email: ${email}, password: ${password}`);
   };
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.formContainer}>
-          <Text style={styles.title}>Увійти</Text>
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
-          >
+      <View style={styles.formContainer}>
+        <Text style={styles.title}>Увійти</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+        >
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Адреса електронної пошти"
+          />
+          <View>
             <TextInput
-              style={styles.input}
-              value={email}
-              onChangeText={setEmail}
-              placeholder="Адреса електронної пошти"
+              style={[styles.input, styles.inputPad]}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              placeholder="Пароль"
             />
-            <View>
-              <TextInput
-                style={styles.input}
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                placeholder="Пароль"
-              />
-              <TouchableOpacity style={styles.showBtn}>
-                <Text>Показати</Text>
-              </TouchableOpacity>
-            </View>
-          </KeyboardAvoidingView>
-
-          <TouchableOpacity style={styles.button} onPress={onLogin}>
-            <Text style={styles.buttonText}>Увійти</Text>
-          </TouchableOpacity>
-          <View style={styles.linkContainer}>
-            <Text>Немає акаунту?</Text>
-            <TouchableOpacity>
-              <Text>Зареєструватися</Text>
+            <TouchableOpacity style={styles.showBtn}>
+              <Text>Показати</Text>
             </TouchableOpacity>
           </View>
+        </KeyboardAvoidingView>
+
+        <TouchableOpacity style={styles.button} onPress={onLogin}>
+          <Text style={styles.buttonText}>Увійти</Text>
+        </TouchableOpacity>
+        <View style={styles.linkContainer}>
+          <Text>Немає акаунту?</Text>
+          <TouchableOpacity>
+            <Text>Зареєструватися</Text>
+          </TouchableOpacity>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   formContainer: {
-    flex: 1,
-    position: "absolute",
-    bottom: 0,
-
-    justifyContent: "flex-end",
-    backgroundColor: "lightblue",
-
+    backgroundColor: "#fff",
     width: "100%",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
+
+    justifyContent: "flex-end",
   },
 
   title: {
@@ -91,7 +85,7 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: "Roboto-Regular",
     fontSize: 16,
-    width: 343,
+    width: "90%",
     height: 50,
     margin: 16,
     borderWidth: 1,
@@ -102,9 +96,12 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
+  inputPad: {
+    paddingRight: 120,
+  },
 
   button: {
-    width: 343,
+    width: "90%",
     height: 51,
     borderRadius: 24,
     backgroundColor: "#FF6C00",
