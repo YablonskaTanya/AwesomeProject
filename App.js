@@ -3,7 +3,15 @@ import * as SplashScreen from "expo-splash-screen";
 // import PostScreen from "./src/components/PostsScreen";
 import RegistrationScreen from "./src/components/RegistrationScreen";
 import LoginScreen from "./src/components/LoginScreen";
+import CommentsScreen from "./src/components/CommentsScreen";
+import CreatePostsScreen from "./src/components/CreatePostsScreen";
+import Home from "./src/components/Home";
+import ProfileScreen from "./src/components/ProfileScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
 import {
+  Button,
   ImageBackground,
   Keyboard,
   StyleSheet,
@@ -13,6 +21,8 @@ import {
 
 // SplashScreen.preventAutoHideAsync();
 import ImageBG from "./assets/images/ImageBG.png";
+
+const MainStack = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,24 +35,38 @@ export default function App() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <ImageBackground source={ImageBG} style={styles.image}>
-          {/* <RegistrationScreen /> */}
-          <LoginScreen />
-        </ImageBackground>
-      </View>
-    </TouchableWithoutFeedback>
+    <>
+      <NavigationContainer>
+        <MainStack.Navigator initialRouteName="Home">
+          <MainStack.Screen
+            name="RegistrationScreen"
+            component={RegistrationScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          <MainStack.Screen
+            name="LoginScreen"
+            component={LoginScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <MainStack.Screen
+            name="Home"
+            component={Home}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </MainStack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "flex-end",
-  },
-});
+{
+  /* <RegistrationScreen />
+      <LoginScreen /> */
+}

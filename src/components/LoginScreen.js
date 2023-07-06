@@ -13,71 +13,89 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import ImageBG from "../../assets/images/ImageBG.png";
 
 export default LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-
+  const navigation = useNavigation();
   const onLogin = () => {
     console.log(`email: ${email}, password: ${password}`);
   };
 
   return (
-    <>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-      >
-        <View
-          style={{
-            ...styles.formContainer,
-            // paddingBottom: isShowKeyboard ? 50 : 0,
-          }}
-        >
-          <Text style={styles.title}>Увійти</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <ImageBackground source={ImageBG} style={styles.image}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+          >
+            <View
+              style={{
+                ...styles.formContainer,
+                // paddingBottom: isShowKeyboard ? 50 : 0,
+              }}
+            >
+              <Text style={styles.title}>Увійти</Text>
 
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Адреса електронної пошти"
-          />
-          <View>
-            <TextInput
-              style={[styles.input, styles.inputPad]}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              placeholder="Пароль"
-            />
-            <TouchableOpacity style={styles.showBtn}>
-              <Text>Показати</Text>
-            </TouchableOpacity>
-          </View>
+              <TextInput
+                style={styles.input}
+                value={email}
+                onChangeText={setEmail}
+                placeholder="Адреса електронної пошти"
+              />
+              <View>
+                <TextInput
+                  style={[styles.input, styles.inputPad]}
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry
+                  placeholder="Пароль"
+                />
+                <TouchableOpacity style={styles.showBtn}>
+                  <Text>Показати</Text>
+                </TouchableOpacity>
+              </View>
 
-          <TouchableOpacity style={styles.button} onPress={onLogin}>
-            <Text style={styles.buttonText}>Увійти</Text>
-          </TouchableOpacity>
-          <View style={styles.linkContainer}>
-            <Text>Немає акаунту?</Text>
-            <TouchableOpacity>
-              <Text>Зареєструватися</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </KeyboardAvoidingView>
-    </>
+              <TouchableOpacity style={styles.button} onPress={onLogin}>
+                <Text style={styles.buttonText}>Увійти</Text>
+              </TouchableOpacity>
+              <View style={styles.linkContainer}>
+                <Text>Немає акаунту?</Text>
+                <TouchableOpacity>
+                  <Text
+                    onPress={() => navigation.navigate("RegistrationScreen")}
+                  >
+                    Зареєструватися
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "flex-end",
+  },
   formContainer: {
     backgroundColor: "#fff",
     width: "100%",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     paddingTop: 32,
-    paddingBottom: 16,
+    paddingBottom: 32,
   },
 
   title: {
