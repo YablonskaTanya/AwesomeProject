@@ -20,39 +20,49 @@ export default RegistrationScreen = () => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   const onRegister = () => {
     console.log(`login: ${login}, email: ${email}, password: ${password}`);
   };
 
   return (
-    <View style={styles.formContainer}>
-      <View style={styles.avatarContainer}>
-        <View style={styles.avatarLogo}>
-          {/* <Image style={styles.tinyLogo} source={avatar} /> */}
-        </View>
-        <TouchableOpacity style={styles.addBtn}>
-          <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
-        </TouchableOpacity>
-        {/* <TouchableOpacity style={styles.closeBtn}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+    >
+      <View
+        style={{
+          ...styles.formContainer,
+
+          // paddingBottom: isShowKeyboard ? 0 : 50,
+        }}
+      >
+        <View style={styles.avatarContainer}>
+          <View style={styles.avatarLogo}>
+            {/* <Image style={styles.tinyLogo} source={avatar} /> */}
+          </View>
+          <TouchableOpacity style={styles.addBtn}>
+            <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
+          </TouchableOpacity>
+          {/* <TouchableOpacity style={styles.closeBtn}>
             <AntDesign name="closecircleo" size={25} color="#E8E8E8" />
           </TouchableOpacity> */}
-      </View>
-      <Text style={styles.title}>Реєстрація</Text>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-      >
+        </View>
+
+        <Text style={styles.title}>Реєстрація</Text>
         <TextInput
           style={styles.input}
           value={login}
           onChangeText={setLogin}
           placeholder="Логін"
+          onFocus={() => setIsShowKeyboard(true)}
         />
         <TextInput
           style={styles.input}
           value={email}
           onChangeText={setEmail}
           placeholder="Адреса електронної пошти"
+          onFocus={() => setIsShowKeyboard(true)}
         />
         <View>
           <TextInput
@@ -61,23 +71,25 @@ export default RegistrationScreen = () => {
             onChangeText={setPassword}
             secureTextEntry
             placeholder="Пароль"
+            onFocus={() => setIsShowKeyboard(true)}
           />
 
           <TouchableOpacity style={styles.showBtn}>
             <Text>Показати</Text>
           </TouchableOpacity>
         </View>
-      </KeyboardAvoidingView>
-      <TouchableOpacity style={styles.button} onPress={onRegister}>
-        <Text style={styles.buttonText}>Зареєстуватися</Text>
-      </TouchableOpacity>
-      <View style={styles.linkContainer}>
-        <Text>Вже є акаунт?</Text>
-        <TouchableOpacity>
-          <Text>Увійти</Text>
+
+        <TouchableOpacity style={styles.button} onPress={onRegister}>
+          <Text style={styles.buttonText}>Зареєстуватися</Text>
         </TouchableOpacity>
+        <View style={styles.linkContainer}>
+          <Text>Вже є акаунт?</Text>
+          <TouchableOpacity>
+            <Text>Увійти</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -87,8 +99,8 @@ const styles = StyleSheet.create({
     width: "100%",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
-
-    justifyContent: "flex-end",
+    paddingTop: 100,
+    paddingBottom: 32,
   },
 
   avatarContainer: {
@@ -114,7 +126,6 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    marginTop: 100,
     marginBottom: 32,
     color: "#212121",
     fontFamily: "Roboto-Medium",
@@ -126,7 +137,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     width: 343,
     height: 50,
-    margin: 16,
+    margin: 8,
     borderWidth: 1,
     borderRadius: 7,
     padding: 10,
@@ -158,12 +169,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginTop: 16,
-    marginBottom: 32,
     gap: 5,
   },
   showBtn: {
     position: "absolute",
-    top: 33,
-    right: 60,
+    top: 25,
+    right: 50,
   },
 });

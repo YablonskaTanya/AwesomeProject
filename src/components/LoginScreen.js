@@ -17,6 +17,7 @@ import {
 export default LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   const onLogin = () => {
     console.log(`email: ${email}, password: ${password}`);
@@ -24,11 +25,17 @@ export default LoginScreen = () => {
 
   return (
     <>
-      <View style={styles.formContainer}>
-        <Text style={styles.title}>Увійти</Text>
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      >
+        <View
+          style={{
+            ...styles.formContainer,
+            // paddingBottom: isShowKeyboard ? 50 : 0,
+          }}
         >
+          <Text style={styles.title}>Увійти</Text>
+
           <TextInput
             style={styles.input}
             value={email}
@@ -47,18 +54,18 @@ export default LoginScreen = () => {
               <Text>Показати</Text>
             </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
 
-        <TouchableOpacity style={styles.button} onPress={onLogin}>
-          <Text style={styles.buttonText}>Увійти</Text>
-        </TouchableOpacity>
-        <View style={styles.linkContainer}>
-          <Text>Немає акаунту?</Text>
-          <TouchableOpacity>
-            <Text>Зареєструватися</Text>
+          <TouchableOpacity style={styles.button} onPress={onLogin}>
+            <Text style={styles.buttonText}>Увійти</Text>
           </TouchableOpacity>
+          <View style={styles.linkContainer}>
+            <Text>Немає акаунту?</Text>
+            <TouchableOpacity>
+              <Text>Зареєструватися</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 };
@@ -69,13 +76,12 @@ const styles = StyleSheet.create({
     width: "100%",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
-
-    justifyContent: "flex-end",
+    paddingTop: 32,
+    paddingBottom: 16,
   },
 
   title: {
     textAlign: "center",
-    marginTop: 32,
     marginBottom: 32,
     color: "#212121",
     fontFamily: "Roboto-Medium",
@@ -120,7 +126,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginTop: 16,
-    marginBottom: 64,
     gap: 5,
   },
   showBtn: {
