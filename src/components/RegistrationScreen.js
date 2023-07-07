@@ -87,7 +87,10 @@ export default RegistrationScreen = () => {
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity style={styles.button} onPress={onRegister}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("Home")}
+              >
                 <Text style={styles.buttonText}>Зареєстуватися</Text>
               </TouchableOpacity>
               <View style={styles.linkContainer}>
@@ -156,7 +159,7 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: "Roboto-Regular",
     fontSize: 16,
-    width: 343,
+    width: "90%",
     height: 50,
     margin: 8,
     borderWidth: 1,
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
     paddingRight: 120,
   },
   button: {
-    width: 343,
+    width: "90%",
     height: 51,
     borderRadius: 24,
     backgroundColor: "#FF6C00",

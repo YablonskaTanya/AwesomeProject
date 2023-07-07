@@ -25,7 +25,6 @@ const CreatePostsScreen = () => {
                 <MaterialIcons name="photo-camera" size={24} color="#BDBDBD" />
               </TouchableOpacity>
             </View>
-            {/* <image></image> */}
           </View>
           <Text style={styles.addPhotoText}>Завантажте фото</Text>
 
@@ -40,7 +39,6 @@ const CreatePostsScreen = () => {
               />
               <TextInput
                 style={[styles.input, styles.inputPad]}
-                secureTextEntry
                 placeholder="Місцевість..."
               />
             </View>
@@ -61,8 +59,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     backgroundColor: "#fff",
-    paddingLeft: 16,
-    paddingRight: 16,
+    paddingLeft: 44,
+    paddingRight: 44,
     paddingTop: 32,
   },
   formContainer: {

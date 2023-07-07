@@ -60,7 +60,10 @@ export default LoginScreen = () => {
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity style={styles.button} onPress={onLogin}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("Home")}
+              >
                 <Text style={styles.buttonText}>Увійти</Text>
               </TouchableOpacity>
               <View style={styles.linkContainer}>

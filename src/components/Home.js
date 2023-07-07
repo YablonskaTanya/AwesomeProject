@@ -27,6 +27,7 @@ const Home = () => {
           borderWidth: 1,
           borderTopColor: "#BDBDBD",
         },
+
         tabBarShowLabel: false,
       }}
     >
@@ -35,8 +36,6 @@ const Home = () => {
         component={PostsScreen}
         options={{
           title: "Публікації",
-          headerStyle: {},
-
           tabBarIcon: () => (
             <TouchableOpacity
             // onPress={() => navigation.navigate("PostsScreen")}
@@ -46,8 +45,7 @@ const Home = () => {
           ),
           headerRight: () => (
             <TouchableOpacity
-
-            // onPress={() => navigation.navigate("PostsScreen")}
+              onPress={() => navigation.navigate("LoginScreen")}
             >
               <MaterialIcons name="logout" size={24} color="#BDBDBD" />
             </TouchableOpacity>
@@ -73,8 +71,8 @@ const Home = () => {
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
-          headerShown: false,
-          title: "ProfileScreen",
+          // headerShown: false,
+          title: "Створити публікацію",
           tabBarIcon: () => (
             <TouchableOpacity
             // onPress={() => navigation.navigate("LoginScreen")}

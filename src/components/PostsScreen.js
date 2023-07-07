@@ -31,9 +31,8 @@ export default PostsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    paddingLeft: 16,
-    paddingRight: 16,
+    paddingRight: 44,
+    paddingLeft: 44,
     paddingTop: 32,
     backgroundColor: "#fff",
   },
