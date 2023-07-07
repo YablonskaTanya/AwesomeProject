@@ -21,6 +21,7 @@ export default LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const navigation = useNavigation();
+
   const onLogin = () => {
     console.log(`email: ${email}, password: ${password}`);
   };
