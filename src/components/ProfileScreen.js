@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     backgroundColor: "#fff",
-    paddingLeft: 44,
-    paddingRight: 44,
+    paddingLeft: 16,
+    paddingRight: 16,
     paddingTop: 32,
   },
   formContainer: {
@@ -79,6 +79,8 @@ const styles = StyleSheet.create({
     width: 343,
     height: 240,
     borderRadius: 8,
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   addPhotoIcon: {
     width: 60,

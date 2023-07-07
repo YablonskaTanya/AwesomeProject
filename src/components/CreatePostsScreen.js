@@ -59,9 +59,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     backgroundColor: "#fff",
-    paddingLeft: 44,
-    paddingRight: 44,
+    paddingLeft: 16,
+    paddingRight: 16,
     paddingTop: 32,
+    // marginLeft: "auto",
+    // marginRight: "auto",
   },
   formContainer: {
     width: "100%",
