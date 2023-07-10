@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Text,
   View,
@@ -13,8 +14,8 @@ import {
   Keyboard,
   ImageBackground,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
+import { useNavigation } from "@react-navigation/native";
 import ImageBG from "../../assets/images/ImageBG.png";
 import avatar from "../../assets/images/avatar.png";
 
@@ -24,8 +25,49 @@ export default RegistrationScreen = () => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const navigation = useNavigation();
+
+  const userData = () => {
+    if (passwordError || emailError || email === "" || password === "") {
+      console.log("Please enter a valid email and password");
+      return;
+    }
+    const user = {
+      login,
+      email: email.toString(),
+      password: password.toString(),
+    };
+
+    navigation.navigate("Home", user);
+  };
+
+  const validateEmail = (text) => {
+    setEmail(text);
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (reg.test(text) === false) {
+      setEmailError("Email is Not Correct");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const validatePassword = (text) => {
+    setPassword(text);
+    let reg = /^.{8,}$/;
+    if (reg.test(text) === false) {
+      setPasswordError("Password must have at least 8 characters");
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const isShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onRegister = () => {
     console.log(`login: ${login}, email: ${email}, password: ${password}`);
@@ -36,13 +78,12 @@ export default RegistrationScreen = () => {
       <View style={styles.container}>
         <ImageBackground source={ImageBG} style={styles.image}>
           <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <View
               style={{
                 ...styles.formContainer,
-
-                // paddingBottom: isShowKeyboard ? 0 : 50,
+                paddingBottom: isShowKeyboard ? 32 : 32,
               }}
             >
               <View style={styles.avatarContainer}>
@@ -68,29 +109,34 @@ export default RegistrationScreen = () => {
               <TextInput
                 style={styles.input}
                 value={email}
-                onChangeText={setEmail}
+                onChangeText={validateEmail}
                 placeholder="Адреса електронної пошти"
                 onFocus={() => setIsShowKeyboard(true)}
               />
+              {emailError ? (
+                <Text style={styles.error}>{emailError}</Text>
+              ) : null}
               <View>
                 <TextInput
                   style={[styles.input, styles.inputPad]}
                   value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry
+                  onChangeText={validatePassword}
+                  secureTextEntry={!showPassword}
                   placeholder="Пароль"
                   onFocus={() => setIsShowKeyboard(true)}
                 />
-
-                <TouchableOpacity style={styles.showBtn}>
-                  <Text>Показати</Text>
+                {passwordError ? (
+                  <Text style={styles.error}>{passwordError}</Text>
+                ) : null}
+                <TouchableOpacity
+                  style={styles.showBtn}
+                  onPress={isShowPassword}
+                >
+                  <Text>{showPassword ? "Приховати" : "Показати"}</Text>
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("Home")}
-              >
+              <TouchableOpacity style={styles.button} onPress={userData}>
                 <Text style={styles.buttonText}>Зареєстуватися</Text>
               </TouchableOpacity>
               <View style={styles.linkContainer}>
@@ -124,7 +170,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     paddingTop: 80,
-    paddingBottom: 24,
+    // paddingBottom: 24,
   },
 
   avatarContainer: {
@@ -199,5 +245,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 25,
     right: 50,
+  },
+  error: {
+    color: "red",
+    paddingLeft: 20,
   },
 });

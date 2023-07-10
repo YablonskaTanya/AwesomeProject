@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Button,
   Image,
@@ -13,14 +14,55 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+
 import { useNavigation } from "@react-navigation/native";
 import ImageBG from "../../assets/images/ImageBG.png";
 
 export default LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const navigation = useNavigation();
+
+  const userData = () => {
+    if (passwordError || emailError || email === "" || password === "") {
+      console.log("Please enter a valid email and password");
+      return;
+    }
+    const user = {
+      email: email.toString(),
+      password: password.toString(),
+    };
+
+    navigation.navigate("Home", user);
+  };
+
+  const validateEmail = (text) => {
+    setEmail(text);
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (reg.test(text) === false) {
+      setEmailError("Email is Not Correct");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const validatePassword = (text) => {
+    setPassword(text);
+    let reg = /^.{8,}$/;
+    if (reg.test(text) === false) {
+      setPasswordError("Password must have at least 8 characters");
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const isShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onLogin = () => {
     console.log(`email: ${email}, password: ${password}`);
@@ -31,39 +73,46 @@ export default LoginScreen = () => {
       <View style={styles.container}>
         <ImageBackground source={ImageBG} style={styles.image}>
           <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
             <View
               style={{
                 ...styles.formContainer,
-                // paddingBottom: isShowKeyboard ? 50 : 0,
+                paddingBottom: isShowKeyboard ? 32 : 32,
               }}
             >
               <Text style={styles.title}>Увійти</Text>
-
               <TextInput
                 style={styles.input}
                 value={email}
-                onChangeText={setEmail}
+                onChangeText={validateEmail}
                 placeholder="Адреса електронної пошти"
+                onFocus={() => setIsShowKeyboard(true)}
               />
+              {emailError ? (
+                <Text style={styles.error}>{emailError}</Text>
+              ) : null}
               <View>
                 <TextInput
                   style={[styles.input, styles.inputPad]}
                   value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry
+                  onChangeText={validatePassword}
+                  secureTextEntry={!showPassword}
                   placeholder="Пароль"
+                  onFocus={() => setIsShowKeyboard(true)}
                 />
-                <TouchableOpacity style={styles.showBtn}>
-                  <Text>Показати</Text>
+                {passwordError ? (
+                  <Text style={styles.error}>{passwordError}</Text>
+                ) : null}
+                <TouchableOpacity
+                  style={styles.showBtn}
+                  onPress={isShowPassword}
+                >
+                  <Text>{showPassword ? "Приховати" : "Показати"}</Text>
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("Home")}
-              >
+              <TouchableOpacity style={styles.button} onPress={userData}>
                 <Text style={styles.buttonText}>Увійти</Text>
               </TouchableOpacity>
               <View style={styles.linkContainer}>
@@ -99,7 +148,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     paddingTop: 32,
-    paddingBottom: 32,
+    // paddingBottom: 24,
   },
 
   title: {
@@ -115,7 +164,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     width: "90%",
     height: 50,
-    margin: 16,
+    margin: 8,
     borderWidth: 1,
     borderRadius: 7,
     padding: 10,
@@ -152,7 +201,11 @@ const styles = StyleSheet.create({
   },
   showBtn: {
     position: "absolute",
-    top: 33,
-    right: 60,
+    top: 25,
+    right: 50,
+  },
+  error: {
+    color: "red",
+    paddingLeft: 20,
   },
 });

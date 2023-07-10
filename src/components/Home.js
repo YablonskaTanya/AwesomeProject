@@ -20,12 +20,16 @@ const Home = () => {
       initialRouteName="PostsScreen"
       screenOptions={{
         tabBarStyle: {
+          height: 83,
+          // width: 150,
           paddingTop: 16,
-          paddingBottom: 26,
-          paddingRight: 40,
-          paddingLeft: 40,
-          borderWidth: 1,
-          borderTopColor: "#BDBDBD",
+          // justifyContent: "center",
+          // alignContent: "space-between",
+          // paddingBottom: 26,
+          // paddingRight: 40,
+          // paddingLeft: 40,
+          // borderWidth: 1,
+          // borderTopColor: "#BDBDBD",
         },
 
         tabBarShowLabel: false,
@@ -38,7 +42,7 @@ const Home = () => {
           title: "Публікації",
           tabBarIcon: () => (
             <TouchableOpacity
-            // onPress={() => navigation.navigate("PostsScreen")}
+              onPress={() => navigation.navigate("PostsScreen")}
             >
               <AntDesign name="appstore-o" size={24} color="#212121CC" />
             </TouchableOpacity>
@@ -60,7 +64,7 @@ const Home = () => {
           tabBarIcon: () => (
             <TouchableOpacity
               style={styles.addBtn}
-              // onPress={() => navigation.navigate("PostsScreen")}
+              onPress={() => navigation.navigate("CreatePostsScreen")}
             >
               <AntDesign name="plus" size={24} color="#FFFFFF" />
             </TouchableOpacity>
@@ -75,7 +79,7 @@ const Home = () => {
           title: "Створити публікацію",
           tabBarIcon: () => (
             <TouchableOpacity
-            // onPress={() => navigation.navigate("LoginScreen")}
+              onPress={() => navigation.navigate("ProfileScreen")}
             >
               <Feather name="user" size={24} color="#212121CC" />
             </TouchableOpacity>
