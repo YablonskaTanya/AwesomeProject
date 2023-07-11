@@ -49,6 +49,7 @@ const Home = () => {
           ),
           headerRight: () => (
             <TouchableOpacity
+              style={styles.logoutBtn}
               onPress={() => navigation.navigate("LoginScreen")}
             >
               <MaterialIcons name="logout" size={24} color="#BDBDBD" />
@@ -69,6 +70,18 @@ const Home = () => {
               <AntDesign name="plus" size={24} color="#FFFFFF" />
             </TouchableOpacity>
           ),
+          headerLeft: () => (
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => navigation.navigate("PostsScreen")}
+            >
+              <AntDesign
+                name="arrowleft"
+                size={24}
+                color="rgba(33, 33, 33, 0.8)"
+              />
+            </TouchableOpacity>
+          ),
         }}
       />
       <Tabs.Screen
@@ -82,6 +95,18 @@ const Home = () => {
               onPress={() => navigation.navigate("ProfileScreen")}
             >
               <Feather name="user" size={24} color="#212121CC" />
+            </TouchableOpacity>
+          ),
+          headerLeft: () => (
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => navigation.navigate("PostsScreen")}
+            >
+              <AntDesign
+                name="arrowleft"
+                size={24}
+                color="rgba(33, 33, 33, 0.8)"
+              />
             </TouchableOpacity>
           ),
         }}
@@ -103,6 +128,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
+  },
+  logoutBtn: {
+    marginRight: 10,
+  },
+  backBtn: {
+    marginLeft: 10,
   },
 });
 
