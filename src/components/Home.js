@@ -21,15 +21,7 @@ const Home = () => {
       screenOptions={{
         tabBarStyle: {
           height: 83,
-          // width: 150,
           paddingTop: 16,
-          // justifyContent: "center",
-          // alignContent: "space-between",
-          // paddingBottom: 26,
-          // paddingRight: 40,
-          // paddingLeft: 40,
-          // borderWidth: 1,
-          // borderTopColor: "#BDBDBD",
         },
 
         tabBarShowLabel: false,

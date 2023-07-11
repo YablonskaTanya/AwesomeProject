@@ -25,6 +25,8 @@ export default LoginScreen = () => {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const navigation = useNavigation();
 
   const userData = () => {
@@ -83,23 +85,42 @@ export default LoginScreen = () => {
             >
               <Text style={styles.title}>Увійти</Text>
               <TextInput
-                style={styles.input}
+                style={{
+                  ...styles.input,
+                  borderColor: isEmailFocused
+                    ? "rgba(255, 108, 0, 1)"
+                    : "rgba(255, 255, 255, 1)",
+                }}
                 value={email}
                 onChangeText={validateEmail}
+                autoFocus={true}
                 placeholder="Адреса електронної пошти"
-                onFocus={() => setIsShowKeyboard(true)}
+                onFocus={() => setIsEmailFocused(true)}
+                onBlur={() => setIsEmailFocused(false)}
+                // onFocus={() => setIsShowKeyboard(true)}
               />
               {emailError ? (
                 <Text style={styles.error}>{emailError}</Text>
               ) : null}
               <View>
                 <TextInput
-                  style={[styles.input, styles.inputPad]}
+                  style={[
+                    {
+                      ...styles.input,
+                      borderColor: isPasswordFocused
+                        ? "rgba(255, 108, 0, 1)"
+                        : "rgba(255, 255, 255, 1)",
+                    },
+                    styles.inputPad,
+                  ]}
                   value={password}
                   onChangeText={validatePassword}
                   secureTextEntry={!showPassword}
+                  autoFocus={true}
                   placeholder="Пароль"
-                  onFocus={() => setIsShowKeyboard(true)}
+                  onFocus={() => setIsPasswordFocused(true)}
+                  onBlur={() => setIsPasswordFocused(false)}
+                  // onFocus={() => setIsShowKeyboard(true)}
                 />
                 {passwordError ? (
                   <Text style={styles.error}>{passwordError}</Text>
