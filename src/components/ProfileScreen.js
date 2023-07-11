@@ -22,8 +22,11 @@ import {
   FontAwesome,
 } from "@expo/vector-icons";
 import image from "../../assets/images/rectangle.png";
+import sea from "../../assets/images/sea.png";
+import house from "../../assets/images/house.png";
 import ImageBG from "../../assets/images/ImageBG.png";
 import avatar from "../../assets/images/avatar.png";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView } from "react-native-gesture-handler";
@@ -32,173 +35,175 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        {/* <ScrollView style={styles.scrollView}> */}
+    // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollView}>
         <ImageBackground source={ImageBG} style={styles.image}>
-          <KeyboardAvoidingView
+          {/* <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-          >
-            <View style={styles.formContainer}>
-              <TouchableOpacity
-                style={styles.logoutBtn}
-                onPress={() => navigation.navigate("LoginScreen")}
-              >
-                <MaterialIcons name="logout" size={24} color="#BDBDBD" />
-              </TouchableOpacity>
-              <View style={styles.avatarContainer}>
-                <View style={styles.avatarLogo}>
-                  <Image style={styles.avatar} source={avatar} />
-                </View>
-                {/* <TouchableOpacity style={styles.addBtn}>
+          > */}
+          <View style={styles.formContainer}>
+            <TouchableOpacity
+              style={styles.logoutBtn}
+              onPress={() => navigation.navigate("LoginScreen")}
+            >
+              <MaterialIcons name="logout" size={24} color="#BDBDBD" />
+            </TouchableOpacity>
+            <View style={styles.avatarContainer}>
+              <View style={styles.avatarLogo}>
+                <Image style={styles.avatar} source={avatar} />
+              </View>
+              {/* <TouchableOpacity style={styles.addBtn}>
                   <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
                 </TouchableOpacity> */}
-                <TouchableOpacity style={styles.closeBtn}>
-                  <AntDesign name="closecircleo" size={25} color="#E8E8E8" />
-                </TouchableOpacity>
+              <TouchableOpacity style={styles.closeBtn}>
+                <AntDesign name="closecircleo" size={25} color="#E8E8E8" />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.title}>Natali Romanova</Text>
+            <View style={styles.contentContainer}>
+              <View>
+                <Image style={styles.contentImage} source={image} />
+                <Text style={styles.contentTitle}>Ліс</Text>
+                <View style={styles.feedbackContainer}>
+                  <View style={styles.feedbackContainerLeftEl}>
+                    <View style={styles.feedbackContainerEl}>
+                      <TouchableOpacity>
+                        <FontAwesome
+                          name="comment-o"
+                          size={24}
+                          color="#FF6C00"
+                        />
+                      </TouchableOpacity>
+                      <Text>8</Text>
+                    </View>
+                    <View style={styles.feedbackContainerEl}>
+                      <TouchableOpacity>
+                        <AntDesign name="like2" size={24} color="#FF6C00" />
+                      </TouchableOpacity>
+                      <Text>153</Text>
+                    </View>
+                  </View>
+
+                  <View
+                    style={[
+                      styles.feedbackContainerEl,
+                      styles.localionPosition,
+                    ]}
+                  >
+                    <TouchableOpacity>
+                      <SimpleLineIcons
+                        style={styles.locationIcon}
+                        name="location-pin"
+                        size={24}
+                        color="#BDBDBD"
+                      />
+                    </TouchableOpacity>
+                    <Text style={styles.locationIconTitle}>Ukraine</Text>
+                  </View>
+                </View>
               </View>
-              <Text style={styles.title}>Natali Romanova</Text>
-              <View style={styles.contentContainer}>
-                <View>
-                  <Image style={styles.contentImage} source={image} />
-                  <Text style={styles.contentTitle}>Ліс</Text>
-                  <View style={styles.feedbackContainer}>
-                    <View style={styles.feedbackContainerLeftEl}>
-                      <View style={styles.feedbackContainerEl}>
-                        <TouchableOpacity>
-                          <FontAwesome
-                            name="comment-o"
-                            size={24}
-                            color="#FF6C00"
-                          />
-                        </TouchableOpacity>
-                        <Text>3</Text>
-                      </View>
-                      <View style={styles.feedbackContainerEl}>
-                        <TouchableOpacity>
-                          <AntDesign name="like2" size={24} color="#FF6C00" />
-                        </TouchableOpacity>
-                        <Text>200</Text>
-                      </View>
-                    </View>
-
-                    <View
-                      style={[
-                        styles.feedbackContainerEl,
-                        styles.localionPosition,
-                      ]}
-                    >
+              <View>
+                <Image style={styles.contentImage} source={sea} />
+                <Text style={styles.contentTitle}>Захід на Чорному морі</Text>
+                <View style={styles.feedbackContainer}>
+                  <View style={styles.feedbackContainerLeftEl}>
+                    <View style={styles.feedbackContainerEl}>
                       <TouchableOpacity>
-                        <SimpleLineIcons
-                          style={styles.locationIcon}
-                          name="location-pin"
+                        <FontAwesome
+                          name="comment-o"
                           size={24}
-                          color="#BDBDBD"
+                          color="#FF6C00"
                         />
                       </TouchableOpacity>
-                      <Text style={styles.locationIconTitle}>Ukraine</Text>
+                      <Text>3</Text>
+                    </View>
+                    <View style={styles.feedbackContainerEl}>
+                      <TouchableOpacity>
+                        <AntDesign name="like2" size={24} color="#FF6C00" />
+                      </TouchableOpacity>
+                      <Text>200</Text>
                     </View>
                   </View>
-                </View>
-                <View>
-                  <Image style={styles.contentImage} source={image} />
-                  <Text style={styles.contentTitle}>Ліс</Text>
-                  <View style={styles.feedbackContainer}>
-                    <View style={styles.feedbackContainerLeftEl}>
-                      <View style={styles.feedbackContainerEl}>
-                        <TouchableOpacity>
-                          <FontAwesome
-                            name="comment-o"
-                            size={24}
-                            color="#FF6C00"
-                          />
-                        </TouchableOpacity>
-                        <Text>3</Text>
-                      </View>
-                      <View style={styles.feedbackContainerEl}>
-                        <TouchableOpacity>
-                          <AntDesign name="like2" size={24} color="#FF6C00" />
-                        </TouchableOpacity>
-                        <Text>200</Text>
-                      </View>
-                    </View>
 
-                    <View
-                      style={[
-                        styles.feedbackContainerEl,
-                        styles.localionPosition,
-                      ]}
-                    >
-                      <TouchableOpacity>
-                        <SimpleLineIcons
-                          style={styles.locationIcon}
-                          name="location-pin"
-                          size={24}
-                          color="#BDBDBD"
-                        />
-                      </TouchableOpacity>
-                      <Text style={styles.locationIconTitle}>Ukraine</Text>
-                    </View>
+                  <View
+                    style={[
+                      styles.feedbackContainerEl,
+                      styles.localionPosition,
+                    ]}
+                  >
+                    <TouchableOpacity>
+                      <SimpleLineIcons
+                        style={styles.locationIcon}
+                        name="location-pin"
+                        size={24}
+                        color="#BDBDBD"
+                      />
+                    </TouchableOpacity>
+                    <Text style={styles.locationIconTitle}>Ukraine</Text>
                   </View>
                 </View>
-                <View>
-                  <Image style={styles.contentImage} source={image} />
-                  <Text style={styles.contentTitle}>Ліс</Text>
-                  <View style={styles.feedbackContainer}>
-                    <View style={styles.feedbackContainerLeftEl}>
-                      <View style={styles.feedbackContainerEl}>
-                        <TouchableOpacity>
-                          <FontAwesome
-                            name="comment-o"
-                            size={24}
-                            color="#FF6C00"
-                          />
-                        </TouchableOpacity>
-                        <Text>3</Text>
-                      </View>
-                      <View style={styles.feedbackContainerEl}>
-                        <TouchableOpacity>
-                          <AntDesign name="like2" size={24} color="#FF6C00" />
-                        </TouchableOpacity>
-                        <Text>200</Text>
-                      </View>
-                    </View>
-
-                    <View
-                      style={[
-                        styles.feedbackContainerEl,
-                        styles.localionPosition,
-                      ]}
-                    >
+              </View>
+              <View>
+                <Image style={styles.contentImage} source={house} />
+                <Text style={styles.contentTitle}>
+                  Старий будиночок у Венеції
+                </Text>
+                <View style={styles.feedbackContainer}>
+                  <View style={styles.feedbackContainerLeftEl}>
+                    <View style={styles.feedbackContainerEl}>
                       <TouchableOpacity>
-                        <SimpleLineIcons
-                          style={styles.locationIcon}
-                          name="location-pin"
+                        <FontAwesome
+                          name="comment-o"
                           size={24}
-                          color="#BDBDBD"
+                          color="#FF6C00"
                         />
                       </TouchableOpacity>
-                      <Text style={styles.locationIconTitle}>Ukraine</Text>
+                      <Text>50</Text>
                     </View>
+                    <View style={styles.feedbackContainerEl}>
+                      <TouchableOpacity>
+                        <AntDesign name="like2" size={24} color="#FF6C00" />
+                      </TouchableOpacity>
+                      <Text>200</Text>
+                    </View>
+                  </View>
+
+                  <View
+                    style={[
+                      styles.feedbackContainerEl,
+                      styles.localionPosition,
+                    ]}
+                  >
+                    <TouchableOpacity>
+                      <SimpleLineIcons
+                        style={styles.locationIcon}
+                        name="location-pin"
+                        size={24}
+                        color="#BDBDBD"
+                      />
+                    </TouchableOpacity>
+                    <Text style={styles.locationIconTitle}>Italy</Text>
                   </View>
                 </View>
               </View>
             </View>
-          </KeyboardAvoidingView>
+          </View>
+          {/* </KeyboardAvoidingView> */}
         </ImageBackground>
-        {/* </ScrollView> */}
-      </View>
-    </TouchableWithoutFeedback>
+      </ScrollView>
+    </View>
+    // </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: StatusBar.currentHeight,
+    paddingTop: StatusBar.currentHeight,
   },
   scrollView: {
-    backgroundColor: "pink",
+    backgroundColor: "#fff",
   },
   image: {
     flex: 1,
@@ -212,9 +217,10 @@ const styles = StyleSheet.create({
   },
 
   formContainer: {
-    marginTop: 150,
+    marginTop: 180,
     backgroundColor: "#fff",
     width: "100%",
+
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     paddingTop: 80,
@@ -226,11 +232,11 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 16,
-    top: "-22%",
+    top: "-6%",
     left: "35%",
   },
   contentContainer: {
-    height: 240,
+    // height: 240,
     borderRadius: 8,
     alignItems: "center",
     gap: 16,
