@@ -80,8 +80,9 @@ const Home = () => {
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
-          // headerShown: false,
+          headerShown: false,
           title: "Створити публікацію",
+          headerTitleStyle: {},
           tabBarIcon: () => (
             <TouchableOpacity
               onPress={() => navigation.navigate("ProfileScreen")}
@@ -126,6 +127,9 @@ const styles = StyleSheet.create({
   },
   backBtn: {
     marginLeft: 10,
+  },
+  title: {
+    textAlign: "center",
   },
 });
 
