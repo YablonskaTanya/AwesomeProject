@@ -80,7 +80,7 @@ export default LoginScreen = () => {
             <View
               style={{
                 ...styles.formContainer,
-                paddingBottom: isShowKeyboard ? 32 : 32,
+                paddingBottom: isShowKeyboard ? 16 : 24,
               }}
             >
               <Text style={styles.title}>Увійти</Text>

@@ -32,6 +32,7 @@ const Home = () => {
         component={PostsScreen}
         options={{
           title: "Публікації",
+          headerTitleAlign: "center",
           tabBarIcon: () => (
             <TouchableOpacity
               onPress={() => navigation.navigate("PostsScreen")}
@@ -54,7 +55,8 @@ const Home = () => {
         component={CreatePostsScreen}
         options={{
           title: "Створити публікацію",
-          tabBarIcon: () => (
+          headerTitleAlign: "center",
+          tabBarIcon: ({ focused }) => (
             <TouchableOpacity
               style={styles.addBtn}
               onPress={() => navigation.navigate("CreatePostsScreen")}
@@ -62,6 +64,7 @@ const Home = () => {
               <AntDesign name="plus" size={24} color="#FFFFFF" />
             </TouchableOpacity>
           ),
+          tabBarStyle: { display: "none" },
           headerLeft: () => (
             <TouchableOpacity
               style={styles.backBtn}
@@ -82,6 +85,7 @@ const Home = () => {
         options={{
           headerShown: false,
           title: "Створити публікацію",
+          headerTitleAlign: "center",
           headerTitleStyle: {},
           tabBarIcon: () => (
             <TouchableOpacity

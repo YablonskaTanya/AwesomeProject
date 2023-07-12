@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: -10,
     backgroundColor: "#fff",
-    borderRadius: "50%",
+    borderRadius: 50,
   },
   title: {
     textAlign: "center",

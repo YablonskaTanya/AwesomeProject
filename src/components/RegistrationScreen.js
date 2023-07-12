@@ -87,7 +87,7 @@ export default RegistrationScreen = () => {
             <View
               style={{
                 ...styles.formContainer,
-                paddingBottom: isShowKeyboard ? 32 : 32,
+                paddingBottom: isShowKeyboard ? 16 : 24,
               }}
             >
               <View style={styles.avatarContainer}>
@@ -97,9 +97,6 @@ export default RegistrationScreen = () => {
                 <TouchableOpacity style={styles.addBtn}>
                   <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
                 </TouchableOpacity>
-                {/* <TouchableOpacity style={styles.closeBtn}>
-            <AntDesign name="closecircleo" size={25} color="#E8E8E8" />
-          </TouchableOpacity> */}
               </View>
 
               <Text style={styles.title}>Реєстрація</Text>
