@@ -81,24 +81,23 @@ export default RegistrationScreen = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <ImageBackground source={ImageBG} style={styles.image}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+          <View
+            style={{
+              ...styles.formContainer,
+              padingBottom: isShowKeyboard ? 16 : 32,
+            }}
           >
-            <View
-              style={{
-                ...styles.formContainer,
-                paddingBottom: isShowKeyboard ? 16 : 32,
-              }}
-            >
-              <View style={styles.avatarContainer}>
-                <View style={styles.avatarLogo}>
-                  {/* <Image style={styles.tinyLogo} source={avatar} /> */}
-                </View>
-                <TouchableOpacity style={styles.addBtn}>
-                  <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
-                </TouchableOpacity>
+            <View style={styles.avatarContainer}>
+              <View style={styles.avatarLogo}>
+                {/* <Image style={styles.tinyLogo} source={avatar} /> */}
               </View>
-
+              <TouchableOpacity style={styles.addBtn}>
+                <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
+              </TouchableOpacity>
+            </View>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+            >
               <Text style={styles.title}>Реєстрація</Text>
               <TextInput
                 style={{
@@ -163,20 +162,19 @@ export default RegistrationScreen = () => {
                   <Text>{showPassword ? "Приховати" : "Показати"}</Text>
                 </TouchableOpacity>
               </View>
-
-              <TouchableOpacity style={styles.button} onPress={userData}>
-                <Text style={styles.buttonText}>Зареєстуватися</Text>
+            </KeyboardAvoidingView>
+            <TouchableOpacity style={styles.button} onPress={userData}>
+              <Text style={styles.buttonText}>Зареєстуватися</Text>
+            </TouchableOpacity>
+            <View style={styles.linkContainer}>
+              <Text>Вже є акаунт?</Text>
+              <TouchableOpacity>
+                <Text onPress={() => navigation.navigate("LoginScreen")}>
+                  Увійти
+                </Text>
               </TouchableOpacity>
-              <View style={styles.linkContainer}>
-                <Text>Вже є акаунт?</Text>
-                <TouchableOpacity>
-                  <Text onPress={() => navigation.navigate("LoginScreen")}>
-                    Увійти
-                  </Text>
-                </TouchableOpacity>
-              </View>
             </View>
-          </KeyboardAvoidingView>
+          </View>
         </ImageBackground>
       </View>
     </TouchableWithoutFeedback>
@@ -198,7 +196,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     paddingTop: 80,
-    // paddingBottom: 24,
+    paddingBottom: 24,
   },
 
   avatarContainer: {

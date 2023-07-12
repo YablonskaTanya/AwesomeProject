@@ -74,80 +74,82 @@ export default LoginScreen = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <ImageBackground source={ImageBG} style={styles.image}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-          >
-            <View
-              style={{
-                ...styles.formContainer,
-                paddingBottom: isShowKeyboard ? 16 : 32,
-              }}
+          <View>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
-              <Text style={styles.title}>Увійти</Text>
-              <TextInput
+              <View
                 style={{
-                  ...styles.input,
-                  borderColor: isEmailFocused
-                    ? "rgba(255, 108, 0, 1)"
-                    : "rgba(255, 255, 255, 1)",
+                  ...styles.formContainer,
+                  paddingBottom: isShowKeyboard ? 16 : 32,
                 }}
-                value={email}
-                onChangeText={validateEmail}
-                autoFocus={true}
-                placeholder="Адреса електронної пошти"
-                onFocus={() => setIsEmailFocused(true)}
-                onBlur={() => setIsEmailFocused(false)}
-                // onFocus={() => setIsShowKeyboard(true)}
-              />
-              {emailError ? (
-                <Text style={styles.error}>{emailError}</Text>
-              ) : null}
-              <View>
+              >
+                <Text style={styles.title}>Увійти</Text>
                 <TextInput
-                  style={[
-                    {
-                      ...styles.input,
-                      borderColor: isPasswordFocused
-                        ? "rgba(255, 108, 0, 1)"
-                        : "rgba(255, 255, 255, 1)",
-                    },
-                    styles.inputPad,
-                  ]}
-                  value={password}
-                  onChangeText={validatePassword}
-                  secureTextEntry={!showPassword}
+                  style={{
+                    ...styles.input,
+                    borderColor: isEmailFocused
+                      ? "rgba(255, 108, 0, 1)"
+                      : "rgba(255, 255, 255, 1)",
+                  }}
+                  value={email}
+                  onChangeText={validateEmail}
                   autoFocus={true}
-                  placeholder="Пароль"
-                  onFocus={() => setIsPasswordFocused(true)}
-                  onBlur={() => setIsPasswordFocused(false)}
+                  placeholder="Адреса електронної пошти"
+                  onFocus={() => setIsEmailFocused(true)}
+                  onBlur={() => setIsEmailFocused(false)}
                   // onFocus={() => setIsShowKeyboard(true)}
                 />
-                {passwordError ? (
-                  <Text style={styles.error}>{passwordError}</Text>
+                {emailError ? (
+                  <Text style={styles.error}>{emailError}</Text>
                 ) : null}
-                <TouchableOpacity
-                  style={styles.showBtn}
-                  onPress={isShowPassword}
-                >
-                  <Text>{showPassword ? "Приховати" : "Показати"}</Text>
-                </TouchableOpacity>
-              </View>
-
-              <TouchableOpacity style={styles.button} onPress={userData}>
-                <Text style={styles.buttonText}>Увійти</Text>
-              </TouchableOpacity>
-              <View style={styles.linkContainer}>
-                <Text>Немає акаунту?</Text>
-                <TouchableOpacity>
-                  <Text
-                    onPress={() => navigation.navigate("RegistrationScreen")}
+                <View>
+                  <TextInput
+                    style={[
+                      {
+                        ...styles.input,
+                        borderColor: isPasswordFocused
+                          ? "rgba(255, 108, 0, 1)"
+                          : "rgba(255, 255, 255, 1)",
+                      },
+                      styles.inputPad,
+                    ]}
+                    value={password}
+                    onChangeText={validatePassword}
+                    secureTextEntry={!showPassword}
+                    autoFocus={true}
+                    placeholder="Пароль"
+                    onFocus={() => setIsPasswordFocused(true)}
+                    onBlur={() => setIsPasswordFocused(false)}
+                    // onFocus={() => setIsShowKeyboard(true)}
+                  />
+                  {passwordError ? (
+                    <Text style={styles.error}>{passwordError}</Text>
+                  ) : null}
+                  <TouchableOpacity
+                    style={styles.showBtn}
+                    onPress={isShowPassword}
                   >
-                    Зареєструватися
-                  </Text>
+                    <Text>{showPassword ? "Приховати" : "Показати"}</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity style={styles.button} onPress={userData}>
+                  <Text style={styles.buttonText}>Увійти</Text>
                 </TouchableOpacity>
+                <View style={styles.linkContainer}>
+                  <Text>Немає акаунту?</Text>
+                  <TouchableOpacity>
+                    <Text
+                      onPress={() => navigation.navigate("RegistrationScreen")}
+                    >
+                      Зареєструватися
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
+          </View>
         </ImageBackground>
       </View>
     </TouchableWithoutFeedback>
