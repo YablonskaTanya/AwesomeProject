@@ -21,12 +21,13 @@ const CreatePostsScreen = () => {
       <View style={styles.container}>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{
-            ...styles.formContainer,
-            marginBottom: isShowKeyboard ? 50 : 50,
-          }}
         >
-          <View style={styles.formContainer}>
+          <View
+            style={{
+              ...styles.formContainer,
+              marginBottom: isShowKeyboard ? 50 : 50,
+            }}
+          >
             <View style={styles.addPhotoContainer}>
               <View style={styles.addPhotoIcon}>
                 <TouchableOpacity>
@@ -74,23 +75,21 @@ const CreatePostsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-end",
     backgroundColor: "#fff",
     paddingLeft: 16,
     paddingRight: 16,
     paddingTop: 32,
-    // marginLeft: "auto",
-    // marginRight: "auto",
   },
   formContainer: {
     width: "100%",
-    alignItems: "flex-start",
+    // alignItems: "flex-start",
+    alignItems: "center",
+    // alignItems: "baseline",
   },
 
   addPhotoContainer: {
     backgroundColor: "#E8E8E8",
-    width: "100%",
+    width: "90%",
     height: 240,
     borderRadius: 8,
   },
@@ -108,15 +107,17 @@ const styles = StyleSheet.create({
   addPhotoText: {
     color: "#BDBDBD",
     marginTop: 8,
+    alignItems: "flex-start",
+    marginRight: " 50%",
   },
   inputContainer: {
     marginTop: 24,
-    width: "100%",
+    width: "90%",
   },
   input: {
     fontFamily: "Roboto-Regular",
     fontSize: 16,
-    width: "100%",
+    width: "90%",
     height: 50,
 
     borderBottomWidth: 1,
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     zIndex: 1999,
   },
   button: {
-    width: "100%",
+    width: "90%",
     height: 51,
     borderRadius: 24,
     backgroundColor: "#F6F6F6",

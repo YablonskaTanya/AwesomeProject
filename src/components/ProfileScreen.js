@@ -11,6 +11,7 @@ import {
   Image,
   Platform,
   ImageBackground,
+  FlatList,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
@@ -53,9 +54,6 @@ const ProfileScreen = () => {
               <View style={styles.avatarLogo}>
                 <Image style={styles.avatar} source={avatar} />
               </View>
-              {/* <TouchableOpacity style={styles.addBtn}>
-                  <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
-                </TouchableOpacity> */}
               <TouchableOpacity style={styles.closeBtn}>
                 <AntDesign name="closecircleo" size={25} color="#E8E8E8" />
               </TouchableOpacity>

@@ -25,7 +25,7 @@ export default RegistrationScreen = () => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState(false);
+  const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -87,7 +87,7 @@ export default RegistrationScreen = () => {
             <View
               style={{
                 ...styles.formContainer,
-                paddingBottom: isShowKeyboard ? 16 : 24,
+                paddingBottom: isShowKeyboard ? 16 : 32,
               }}
             >
               <View style={styles.avatarContainer}>

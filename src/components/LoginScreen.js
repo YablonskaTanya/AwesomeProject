@@ -21,7 +21,7 @@ import ImageBG from "../../assets/images/ImageBG.png";
 export default LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState(false);
+  const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -80,7 +80,7 @@ export default LoginScreen = () => {
             <View
               style={{
                 ...styles.formContainer,
-                paddingBottom: isShowKeyboard ? 16 : 24,
+                paddingBottom: isShowKeyboard ? 16 : 32,
               }}
             >
               <Text style={styles.title}>Увійти</Text>
