@@ -1,15 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import { AntDesign, MaterialIcons, Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
-import LoginScreen from "./LoginScreen";
-// import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import CommentsScreen from "./CommentsScreen";
+import MapScreen from "./MapScreen";
 
 const Tabs = createBottomTabNavigator();
 
@@ -56,7 +55,7 @@ const Home = () => {
         options={{
           title: "Створити публікацію",
           headerTitleAlign: "center",
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: () => (
             <TouchableOpacity
               style={styles.addBtn}
               onPress={() => navigation.navigate("CreatePostsScreen")}
@@ -86,7 +85,7 @@ const Home = () => {
           headerShown: false,
           title: "Створити публікацію",
           headerTitleAlign: "center",
-          headerTitleStyle: {},
+
           tabBarIcon: () => (
             <TouchableOpacity
               onPress={() => navigation.navigate("ProfileScreen")}
@@ -98,6 +97,54 @@ const Home = () => {
             <TouchableOpacity
               style={styles.backBtn}
               onPress={() => navigation.navigate("PostsScreen")}
+            >
+              <AntDesign
+                name="arrowleft"
+                size={24}
+                color="rgba(33, 33, 33, 0.8)"
+              />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="CommentsScreen"
+        component={CommentsScreen}
+        options={{
+          title: "Коментарі",
+          headerTitleAlign: "center",
+
+          tabBarIcon: () => null,
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+          headerLeft: () => (
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => navigation.navigate("ProfileScreen")}
+            >
+              <AntDesign
+                name="arrowleft"
+                size={24}
+                color="rgba(33, 33, 33, 0.8)"
+              />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="MapScreen"
+        component={MapScreen}
+        options={{
+          title: "Мапа",
+          headerTitleAlign: "center",
+
+          tabBarIcon: () => null,
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+          headerLeft: () => (
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => navigation.navigate("ProfileScreen")}
             >
               <AntDesign
                 name="arrowleft"

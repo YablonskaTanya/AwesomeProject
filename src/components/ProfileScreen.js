@@ -267,11 +267,12 @@ const styles = StyleSheet.create({
   },
   feedbackContainerEl: {
     flexDirection: "row",
-    alignItems: "baseline",
+    alignItems: "center",
     gap: 8,
   },
   localionPosition: {
     justifyContent: "flex-start",
+    alignItems: "center",
   },
   locationIconTitle: {
     textDecorationLine: "underline",

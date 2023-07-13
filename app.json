@@ -24,6 +24,20 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "ios.config.googleMapsApiKey": {
+      "key": "AIzaSyAWgn8e3WLn3RV_VokOTfYubFc8x62R-Bs"
+    },
+
+    "expo": {
+      "plugins": [
+        [
+          "expo-location",
+          {
+            "locationAlwaysAndWhenInUsePermission": "Allow $(AvesomeProject) to use your location."
+          }
+        ]
+      ]
     }
   }
 }
