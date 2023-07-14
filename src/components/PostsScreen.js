@@ -1,23 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
-import CreatePostsScreen from "./CreatePostsScreen";
-import {
-  Button,
-  Image,
-  ImageBackground,
-  Keyboard,
-  StyleSheet,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-// import ImageBG from "../../assets/images/ImageBG.png";
+import { Image, StyleSheet, Text, View } from "react-native";
+
 import image from "../../assets/images/rectangle.png";
 import sea from "../../assets/images/sea.png";
 import house from "../../assets/images/house.png";
-import ImageBG from "../../assets/images/ImageBG.png";
 import avatar from "../../assets/images/avatar.png";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { AntDesign, FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
+import { FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default PostsScreen = () => {
@@ -139,12 +128,8 @@ export default PostsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingRight: 32,
-    // paddingLeft: 32,
     paddingTop: 32,
     backgroundColor: "#fff",
-    // width: "100%",
-    // alignItems: "center",
   },
   scrollView: {
     backgroundColor: "#fff",
@@ -170,7 +155,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   contentContainer: {
-    // height: 240,
     borderRadius: 8,
     alignItems: "center",
     gap: 16,

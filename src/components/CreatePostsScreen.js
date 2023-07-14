@@ -20,11 +20,27 @@ const CreatePostsScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [isInputFocused, setIsInputFocused] = useState(false);
-  const [namePost, setNamePost] = useState("");
   const [coordinats, setCoordinats] = useState(null);
-  const [isDisabledBtn, setIsDisabledBtn] = useState(false);
   const navigation = useNavigation();
+
+  const getGeoLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync({});
+      const coords = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      };
+      setCoordinats(coords);
+    } catch (error) {
+      console.log("Error getting location:", error);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -32,6 +48,7 @@ const CreatePostsScreen = () => {
       await MediaLibrary.requestPermissionsAsync();
 
       setHasPermission(status === "granted");
+      getGeoLocation();
     })();
   }, []);
 
@@ -41,12 +58,6 @@ const CreatePostsScreen = () => {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
-  // useEffect(() => {
-  //   const disabled = namePost !== "" && coordinats !== null ? false : true;
-
-  //   setIsDisabledBtn(disabled);
-  // }, [namePost, coordinats]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -103,9 +114,7 @@ const CreatePostsScreen = () => {
                 style={styles.input}
                 placeholder="Назва..."
                 // value={setNamePost}
-                onFocus={() => setIsInputFocused(true)}
-                onBlur={() => setIsInputFocused(false)}
-                // onFocus={() => setIsShowKeyboard(true)}
+                onFocus={() => setIsShowKeyboard(true)}
               />
               <View style={styles.locationContainre}>
                 <SimpleLineIcons
@@ -118,45 +127,16 @@ const CreatePostsScreen = () => {
                   style={[styles.input, styles.inputPad]}
                   placeholder="Місцевість..."
                   // value={setCoordinats}
-                  onFocus={() => setIsInputFocused(true)}
-                  onBlur={() => setIsInputFocused(false)}
-                  // onFocus={() => setIsShowKeyboard(true)}
+                  onFocus={() => setIsShowKeyboard(true)}
                 />
               </View>
             </View>
 
             <TouchableOpacity
-              style={{
-                ...styles.button,
-                backgroundColor: isInputFocused ? "#FF6C00" : "#F6F6F6",
-              }}
-              // style={
-              //   isDisabledBtn
-              //     ? {
-              //         ...styles.button,
-              //         backgroundColor: "#F6F6F6",
-              //         color: "#BDBDBD",
-              //       }
-              //     : { ...styles.button, backgroundColor: "#FF6C00" }
-              // }
+              style={styles.button}
+              onPress={() => navigation.navigate("PostsScreen", { coordinats })}
             >
-              <Text
-                style={{
-                  ...styles.buttonText,
-                  color: isInputFocused ? "#FFFFFF" : "#BDBDBD",
-                }}
-                // style={
-                //   isDisabledBtn
-                //     ? {
-                //         ...styles.buttonTitle,
-                //         color: "#BDBDBD",
-                //       }
-                //     : { ...styles.buttonTitle, color: "#FFFFFF" }
-                // }
-              >
-                Опубліковати
-                {/* {location || !capturedPhoto ? 'Опублікувати' : 'Завантаження...'}  */}
-              </Text>
+              <Text style={styles.buttonText}>Опубліковати</Text>
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
@@ -235,7 +215,7 @@ const styles = StyleSheet.create({
     width: "90%",
     height: 51,
     borderRadius: 24,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: "#FF6C00",
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     alignItems: "center",
@@ -245,19 +225,8 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   buttonText: {
-    color: "#BDBDBD",
+    color: "#fff",
   },
-
-  // photoView: {
-  //   flex: 1,
-  //   backgroundColor: "transparent",
-  //   justifyContent: "flex-end",
-  // },
-
-  // flipContainer: {
-  //   flex: 0.1,
-  //   alignSelf: "flex-end",
-  // },
 });
 
 export default CreatePostsScreen;

@@ -5,8 +5,6 @@ import {
   View,
   StyleSheet,
   TextInput,
-  Button,
-  Image,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
@@ -17,7 +15,6 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import ImageBG from "../../assets/images/ImageBG.png";
-import avatar from "../../assets/images/avatar.png";
 
 import { AntDesign } from "@expo/vector-icons";
 

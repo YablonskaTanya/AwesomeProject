@@ -3,15 +3,9 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView,
   Image,
-  Platform,
   ImageBackground,
-  FlatList,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
@@ -28,7 +22,6 @@ import house from "../../assets/images/house.png";
 import ImageBG from "../../assets/images/ImageBG.png";
 import avatar from "../../assets/images/avatar.png";
 
-import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -36,13 +29,9 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
 
   return (
-    // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <ImageBackground source={ImageBG} style={styles.image}>
-          {/* <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-          > */}
           <View style={styles.formContainer}>
             <TouchableOpacity
               style={styles.logoutBtn}
@@ -187,11 +176,9 @@ const ProfileScreen = () => {
               </View>
             </View>
           </View>
-          {/* </KeyboardAvoidingView> */}
         </ImageBackground>
       </ScrollView>
     </View>
-    // </TouchableWithoutFeedback>
   );
 };
 
@@ -281,21 +268,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 16,
   },
-  // linkContainer: {
-  //   flexDirection: "row",
-  //   justifyContent: "center",
-  //   marginTop: 16,
-  //   gap: 5,
-  // },
-  // showBtn: {
-  //   position: "absolute",
-  //   top: 25,
-  //   right: 50,
-  // },
-  // error: {
-  //   color: "red",
-  //   paddingLeft: 20,
-  // },
 });
 
 export default ProfileScreen;

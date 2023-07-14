@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const MapScreen = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const coordinats = route.params?.coordinats;
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -45,7 +49,7 @@ const MapScreen = () => {
           }}
           showsUserLocation={true}
         >
-          {location && (
+          {coordinats && (
             <Marker
               title="I am here"
               coordinate={location}
