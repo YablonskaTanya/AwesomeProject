@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -20,12 +22,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.example.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-
     "expo": {
       "plugins": [
         [
@@ -35,6 +37,11 @@
           }
         ]
       ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7b73d220-c8da-41c7-b434-872bd8220890"
+      }
     }
   }
 }
