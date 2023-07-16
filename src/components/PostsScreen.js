@@ -1,126 +1,85 @@
 import { useNavigation } from "@react-navigation/native";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 
-import image from "../../assets/images/rectangle.png";
-import sea from "../../assets/images/sea.png";
-import house from "../../assets/images/house.png";
 import avatar from "../../assets/images/avatar.png";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
+import { useEffect, useState } from "react";
 
-export default PostsScreen = () => {
+export default PostsScreen = ({ route }) => {
   const navigation = useNavigation();
+  const [posts, setPosts] = useState([]);
+  console.log("route :>> ", route);
+
+  useEffect(() => {
+    if (route.params) {
+      const { photo, photoName, photoLocation } = route.params;
+      setPosts((prevState) => [
+        ...prevState,
+        { photo, photoName, photoLocation },
+      ]);
+    }
+  }, [route.params]);
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.personContainer}>
-          <Image style={styles.tinyLogo} source={avatar} />
-          <View style={styles.textContainer}>
-            <Text style={styles.textName}>Natali Romanova</Text>
-            <Text style={styles.textEmail}>email@example.com</Text>
-          </View>
+      <View style={styles.personContainer}>
+        <Image style={styles.tinyLogo} source={avatar} />
+        <View style={styles.textContainer}>
+          <Text style={styles.textName}>Natali Romanova</Text>
+          <Text style={styles.textEmail}>email@example.com</Text>
         </View>
-
-        <View style={styles.contentContainer}>
-          <View>
-            <Image style={styles.contentImage} source={image} />
-            <Text style={styles.contentTitle}>Ліс</Text>
-            <View style={styles.feedbackContainer}>
-              <View style={styles.feedbackContainerLeftEl}>
-                <View style={styles.feedbackContainerEl}>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate("CommentsScreen")}
-                  >
-                    <FontAwesome name="comment-o" size={24} color="#FF6C00" />
-                  </TouchableOpacity>
-                  <Text>0</Text>
+      </View>
+      <View style={styles.contentContainer}>
+        <FlatList
+          data={posts}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View>
+              <Image source={{ uri: item.photo }} style={styles.image} />
+              <Text style={styles.contentTitle}>{item.photoName}</Text>
+              <View style={styles.feedbackContainer}>
+                <View style={styles.feedbackContainerLeftEl}>
+                  <View style={styles.feedbackContainerEl}>
+                    <FontAwesome
+                      name="comment-o"
+                      size={24}
+                      color="#FF6C00"
+                      onPress={() =>
+                        navigation.navigate("CommentsScreen", {
+                          postId: item.id,
+                          photo: item.photo,
+                        })
+                      }
+                    />
+                  </View>
                 </View>
-              </View>
-
-              <View
-                style={[styles.feedbackContainerEl, styles.localionPosition]}
-              >
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("MapScreen")}
+                <View></View>
+                <View
+                  style={[styles.feedbackContainerEl, styles.localionPosition]}
                 >
                   <SimpleLineIcons
                     style={styles.locationIcon}
                     name="location-pin"
                     size={24}
                     color="#BDBDBD"
+                    onPress={() =>
+                      navigation.navigate("MapScreen", {
+                        location: item.location,
+                      })
+                    }
                   />
-                </TouchableOpacity>
-                <Text style={styles.locationIconTitle}>Ukraine</Text>
-              </View>
-            </View>
-          </View>
-          <View>
-            <Image style={styles.contentImage} source={sea} />
-            <Text style={styles.contentTitle}>Захід на Чорному морі</Text>
-            <View style={styles.feedbackContainer}>
-              <View style={styles.feedbackContainerLeftEl}>
-                <View style={styles.feedbackContainerEl}>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate("CommentsScreen")}
-                  >
-                    <FontAwesome name="comment-o" size={24} color="#FF6C00" />
-                  </TouchableOpacity>
-                  <Text>0</Text>
+
+                  <Text style={styles.locationIconTitle}>
+                    {item.photoLocation}
+                  </Text>
                 </View>
               </View>
-
-              <View
-                style={[styles.feedbackContainerEl, styles.localionPosition]}
-              >
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("MapScreen")}
-                >
-                  <SimpleLineIcons
-                    style={styles.locationIcon}
-                    name="location-pin"
-                    size={24}
-                    color="#BDBDBD"
-                  />
-                </TouchableOpacity>
-                <Text style={styles.locationIconTitle}>Ukraine</Text>
-              </View>
             </View>
-          </View>
-          <View>
-            <Image style={styles.contentImage} source={house} />
-            <Text style={styles.contentTitle}>Старий будиночок у Венеції</Text>
-            <View style={styles.feedbackContainer}>
-              <View style={styles.feedbackContainerLeftEl}>
-                <View style={styles.feedbackContainerEl}>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate("CommentsScreen")}
-                  >
-                    <FontAwesome name="comment-o" size={24} color="#FF6C00" />
-                  </TouchableOpacity>
-                  <Text>0</Text>
-                </View>
-              </View>
-
-              <View
-                style={[styles.feedbackContainerEl, styles.localionPosition]}
-              >
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("MapScreen")}
-                >
-                  <SimpleLineIcons
-                    style={styles.locationIcon}
-                    name="location-pin"
-                    size={24}
-                    color="#BDBDBD"
-                  />
-                </TouchableOpacity>
-                <Text style={styles.locationIconTitle}>Italy</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
+          )}
+        />
+      </View>
     </View>
   );
 };
@@ -131,10 +90,6 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     backgroundColor: "#fff",
   },
-  scrollView: {
-    backgroundColor: "#fff",
-  },
-
   tinyLogo: {
     width: 60,
     height: 60,
@@ -154,27 +109,20 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 11,
   },
-  contentContainer: {
+
+  image: {
+    width: 350,
+    height: 200,
     borderRadius: 8,
+    backgroundColor: "aqua",
+    marginTop: 16,
+  },
+  contentContainer: {
     alignItems: "center",
-    gap: 16,
-    marginTop: 32,
+    marginTop: 24,
+    marginBottom: 24,
   },
 
-  closeBtn: {
-    position: "absolute",
-    bottom: 10,
-    right: -10,
-    backgroundColor: "#fff",
-    borderRadius: 50,
-  },
-  title: {
-    textAlign: "center",
-    marginBottom: 24,
-    color: "#212121",
-    fontFamily: "Roboto-Medium",
-    fontSize: 30,
-  },
   contentTitle: {
     fontFamily: "Roboto-Medium",
     fontSize: 16,

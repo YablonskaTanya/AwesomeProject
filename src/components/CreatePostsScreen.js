@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
@@ -21,6 +20,9 @@ const CreatePostsScreen = () => {
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [coordinats, setCoordinats] = useState(null);
+  const [photo, setPhoto] = useState(null);
+  const [photoName, setPhotoName] = useState("");
+  const [photoLocation, setPhotoLocation] = useState("");
   const navigation = useNavigation();
 
   const getGeoLocation = async () => {
@@ -36,6 +38,7 @@ const CreatePostsScreen = () => {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       };
+
       setCoordinats(coords);
     } catch (error) {
       console.log("Error getting location:", error);
@@ -46,7 +49,6 @@ const CreatePostsScreen = () => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       await MediaLibrary.requestPermissionsAsync();
-
       setHasPermission(status === "granted");
       getGeoLocation();
     })();
@@ -58,6 +60,23 @@ const CreatePostsScreen = () => {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+
+  const takePhoto = async () => {
+    if (cameraRef) {
+      const { uri } = await cameraRef.takePictureAsync();
+      await MediaLibrary.createAssetAsync(uri);
+      setPhoto(uri);
+    }
+  };
+
+  const sendPhoto = () => {
+    navigation.navigate("PostsScreen", {
+      photo,
+      photoName,
+      photoLocation,
+    });
+    setPhotoName(""), setPhotoLocation(""), setPhoto(null);
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -74,14 +93,7 @@ const CreatePostsScreen = () => {
             <View style={styles.addPhotoContainer}>
               <Camera style={styles.camera} type={type} ref={setCameraRef}>
                 <View style={styles.addPhotoIcon}>
-                  <TouchableOpacity
-                    onPress={async () => {
-                      if (cameraRef) {
-                        const { uri } = await cameraRef.takePictureAsync();
-                        await MediaLibrary.createAssetAsync(uri);
-                      }
-                    }}
-                  >
+                  <TouchableOpacity onPress={takePhoto}>
                     <MaterialIcons
                       name="photo-camera"
                       size={24}
@@ -113,7 +125,8 @@ const CreatePostsScreen = () => {
               <TextInput
                 style={styles.input}
                 placeholder="Назва..."
-                // value={setNamePost}
+                value={photoName}
+                onChangeText={setPhotoName}
                 onFocus={() => setIsShowKeyboard(true)}
               />
               <View style={styles.locationContainre}>
@@ -122,20 +135,19 @@ const CreatePostsScreen = () => {
                   name="location-pin"
                   size={24}
                   color="#BDBDBD"
+                  onPress={() => navigation.navigate("ProfileScreen")}
                 />
                 <TextInput
                   style={[styles.input, styles.inputPad]}
                   placeholder="Місцевість..."
-                  // value={setCoordinats}
+                  value={photoLocation}
+                  onChangeText={setPhotoLocation}
                   onFocus={() => setIsShowKeyboard(true)}
                 />
               </View>
             </View>
 
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate("PostsScreen", { coordinats })}
-            >
+            <TouchableOpacity style={styles.button} onPress={sendPhoto}>
               <Text style={styles.buttonText}>Опубліковати</Text>
             </TouchableOpacity>
           </View>

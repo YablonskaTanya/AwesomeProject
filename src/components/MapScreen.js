@@ -51,9 +51,9 @@ const MapScreen = () => {
         >
           {coordinats && (
             <Marker
-              title="I am here"
+              // title="I am here"
               coordinate={location}
-              description="Hello"
+              // description="Hello"
             />
           )}
         </MapView>

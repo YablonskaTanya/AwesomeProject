@@ -1,26 +1,12 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-// import PostScreen from "./src/components/PostsScreen";
 import RegistrationScreen from "./src/components/RegistrationScreen";
 import LoginScreen from "./src/components/LoginScreen";
-import CommentsScreen from "./src/components/CommentsScreen";
-import CreatePostsScreen from "./src/components/CreatePostsScreen";
 import Home from "./src/components/Home";
-import ProfileScreen from "./src/components/ProfileScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import {
-  Button,
-  ImageBackground,
-  Keyboard,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-
 // SplashScreen.preventAutoHideAsync();
-import ImageBG from "./assets/images/ImageBG.png";
 
 const MainStack = createStackNavigator();
 
@@ -65,9 +51,4 @@ export default function App() {
       </NavigationContainer>
     </>
   );
-}
-
-{
-  /* <RegistrationScreen />
-      <LoginScreen /> */
 }

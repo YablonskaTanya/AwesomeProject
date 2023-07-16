@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     paddingTop: 32,
-    // paddingBottom: 24,
   },
 
   title: {
