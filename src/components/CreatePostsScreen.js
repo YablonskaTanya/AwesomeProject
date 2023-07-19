@@ -135,7 +135,7 @@ const CreatePostsScreen = () => {
                   name="location-pin"
                   size={24}
                   color="#BDBDBD"
-                  onPress={() => navigation.navigate("ProfileScreen")}
+                  // onPress={() => navigation.navigate("ProfileScreen")}
                 />
                 <TextInput
                   style={[styles.input, styles.inputPad]}
