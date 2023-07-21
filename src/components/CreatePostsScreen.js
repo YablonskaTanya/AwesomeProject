@@ -159,7 +159,7 @@ const CreatePostsScreen = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.binBtnContainer}>
-            <TouchableOpacity style={styles.binBtn}>
+            <TouchableOpacity style={styles.binBtn} onPress={resetForm}>
               <Feather name="trash-2" size={24} color="#BDBDBD" />
             </TouchableOpacity>
           </View>
