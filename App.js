@@ -5,8 +5,8 @@ import LoginScreen from "./src/components/LoginScreen";
 import Home from "./src/components/Home";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
-// SplashScreen.preventAutoHideAsync();
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const MainStack = createStackNavigator();
 
@@ -22,7 +22,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <Provider store={store}>
       <NavigationContainer>
         <MainStack.Navigator initialRouteName="LoginScreen">
           <MainStack.Screen
@@ -49,6 +49,6 @@ export default function App() {
           />
         </MainStack.Navigator>
       </NavigationContainer>
-    </>
+    </Provider>
   );
 }

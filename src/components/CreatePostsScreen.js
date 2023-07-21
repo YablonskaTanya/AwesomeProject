@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
-import { MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
+import { MaterialIcons, SimpleLineIcons, Feather } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 
@@ -24,6 +24,13 @@ const CreatePostsScreen = () => {
   const [photoName, setPhotoName] = useState("");
   const [photoLocation, setPhotoLocation] = useState("");
   const navigation = useNavigation();
+
+  resetForm = () => {
+    setPhotoName("");
+    setCoordinats(null);
+    setPhotoLocation("");
+    setPhoto(null);
+  };
 
   const getGeoLocation = async () => {
     try {
@@ -151,6 +158,11 @@ const CreatePostsScreen = () => {
               <Text style={styles.buttonText}>Опубліковати</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.binBtnContainer}>
+            <TouchableOpacity style={styles.binBtn}>
+              <Feather name="trash-2" size={24} color="#BDBDBD" />
+            </TouchableOpacity>
+          </View>
         </KeyboardAvoidingView>
       </View>
     </TouchableWithoutFeedback>
@@ -238,6 +250,17 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#fff",
+  },
+  binBtnContainer: {
+    alignItems: "center",
+  },
+  binBtn: {
+    width: 70,
+    height: 40,
+    borderRadius: 16,
+    backgroundColor: "#F6F6F6",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

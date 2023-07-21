@@ -17,6 +17,8 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import ImageBG from "../../assets/images/ImageBG.png";
+import { logIn } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
 
 export default LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -28,17 +30,19 @@ export default LoginScreen = () => {
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const userData = () => {
     if (passwordError || emailError || email === "" || password === "") {
       console.log("Please enter a valid email and password");
       return;
     }
+
     const user = {
       email: email.toString(),
       password: password.toString(),
     };
-
+    dispatch(logIn({ email, password }));
     navigation.navigate("Home", user);
   };
 

@@ -12,11 +12,13 @@ import {
   Keyboard,
   ImageBackground,
 } from "react-native";
+import { useDispatch } from "react-redux";
 
 import { useNavigation } from "@react-navigation/native";
 import ImageBG from "../../assets/images/ImageBG.png";
 
 import { AntDesign } from "@expo/vector-icons";
+import { register } from "../../redux/auth/authOperations";
 
 export default RegistrationScreen = () => {
   const [login, setLogin] = useState("");
@@ -31,12 +33,14 @@ export default RegistrationScreen = () => {
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const userData = () => {
     if (passwordError || emailError || email === "" || password === "") {
       console.log("Please enter a valid email and password");
       return;
     }
+    dispatch(register({ login, email, password }));
     const user = {
       login,
       email: email.toString(),

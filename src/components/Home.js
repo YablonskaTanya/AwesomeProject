@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AntDesign, MaterialIcons, Feather } from "@expo/vector-icons";
@@ -9,11 +9,14 @@ import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import CommentsScreen from "./CommentsScreen";
 import MapScreen from "./MapScreen";
+// import { useDispatch, useSelector } from "react-redux";
+// import { authStateChangeUser, logOut } from "../../redux/auth/authOperations";
 
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
   const navigation = useNavigation();
+
   return (
     <Tabs.Navigator
       initialRouteName="PostsScreen"
@@ -42,7 +45,8 @@ const Home = () => {
           headerRight: () => (
             <TouchableOpacity
               style={styles.logoutBtn}
-              onPress={() => navigation.navigate("LoginScreen")}
+              // onPress={handleLogout}
+              onPressOut={() => navigation.navigate("LoginScreen")}
             >
               <MaterialIcons name="logout" size={24} color="#BDBDBD" />
             </TouchableOpacity>
