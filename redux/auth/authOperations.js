@@ -38,7 +38,6 @@ export const logIn =
   async (dispatch, getState) => {
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
       return user;
     } catch (error) {
       console.log(error.message);

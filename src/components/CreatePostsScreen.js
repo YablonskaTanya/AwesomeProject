@@ -13,6 +13,11 @@ import { TextInput } from "react-native-gesture-handler";
 import { MaterialIcons, SimpleLineIcons, Feather } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
+import { db, storage } from "../../firebase/config";
+import { addDoc, collection } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+import { useSelector } from "react-redux";
 
 const CreatePostsScreen = () => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -24,6 +29,7 @@ const CreatePostsScreen = () => {
   const [photoName, setPhotoName] = useState("");
   const [photoLocation, setPhotoLocation] = useState("");
   const navigation = useNavigation();
+  const { userId, nickName } = useSelector((state) => state.auth);
 
   resetForm = () => {
     setPhotoName("");
@@ -70,20 +76,61 @@ const CreatePostsScreen = () => {
 
   const takePhoto = async () => {
     if (cameraRef) {
-      const { uri } = await cameraRef.takePictureAsync();
-      await MediaLibrary.createAssetAsync(uri);
-      setPhoto(uri);
+      const photo = await cameraRef.takePictureAsync();
+      await MediaLibrary.createAssetAsync(photo.uri);
+
+      setPhoto(photo.uri);
     }
   };
 
   const sendPhoto = () => {
-    navigation.navigate("PostsScreen", {
+    uploadPostToServer();
+    navigation.navigate("PostsScreen");
+    setPhotoName(""), setPhotoLocation(""), setPhoto(null);
+  };
+
+  // {
+  //   photo,
+  //   photoName,
+  //   photoLocation,
+  // }
+
+  const uploadPhotoToServer = async () => {
+    const response = await fetch(photo);
+    const file = await response.blob();
+    const uniquePostId = Date.now().toString();
+
+    const storageImage = await ref(storage, `postImage/${uniquePostId}`);
+    console.log("storageImage :>> ", storageImage);
+
+    await uploadBytes(storageImage, file);
+    const addedPhoto = await getDownloadURL(storageImage);
+    return addedPhoto;
+  };
+
+  const uploadPostToServer = async () => {
+    const photo = await uploadPhotoToServer();
+    const createPost = {
       photo,
       photoName,
       photoLocation,
-    });
-    setPhotoName(""), setPhotoLocation(""), setPhoto(null);
+      coordinats,
+      userId,
+      nickName,
+    };
+    uploadPostToDatabase(createPost);
   };
+
+  const uploadPostToDatabase = async (post) => {
+    await addDoc(collection(db, "post"), post);
+  };
+
+  // const getAllPost = async () => {
+  //   const postsRef = query(collection(db, "post"));
+  //   onSnapshot(postsRef, (snapshot) => {
+  //     setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //   });
+  // };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

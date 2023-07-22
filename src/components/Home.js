@@ -9,14 +9,45 @@ import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import CommentsScreen from "./CommentsScreen";
 import MapScreen from "./MapScreen";
+import { useDispatch, useSelector } from "react-redux";
 // import { useDispatch, useSelector } from "react-redux";
-// import { authStateChangeUser, logOut } from "../../redux/auth/authOperations";
+import { authStateChangeUser, logOut } from "../../redux/auth/authOperations";
 
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
   const navigation = useNavigation();
 
+  const { stateChange } = useSelector((state) => state.auth);
+  console.log({ stateChange });
+  const dispatch = useDispatch();
+  const handleLogout = async () => {
+    try {
+      await dispatch(logOut());
+    } catch (error) {
+      console.log("Error occurred during logout:", error);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(authStateChangeUser());
+  }, []);
+  if (!stateChange) {
+    return (
+      <Tabs.Navigator>
+        {/* <Tabs.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+        /> */}
+        <Tabs.Screen
+          name="Registration"
+          component={RegistrationScreen}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
+        />
+      </Tabs.Navigator>
+    );
+  }
   return (
     <Tabs.Navigator
       initialRouteName="PostsScreen"
@@ -45,7 +76,7 @@ const Home = () => {
           headerRight: () => (
             <TouchableOpacity
               style={styles.logoutBtn}
-              // onPress={handleLogout}
+              onPress={handleLogout}
               onPressOut={() => navigation.navigate("LoginScreen")}
             >
               <MaterialIcons name="logout" size={24} color="#BDBDBD" />

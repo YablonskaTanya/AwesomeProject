@@ -7,28 +7,43 @@ import { FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
 
+import { db } from "../../firebase/config";
+
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { useSelector } from "react-redux";
+
 export default PostsScreen = ({ route }) => {
   const navigation = useNavigation();
   const [posts, setPosts] = useState([]);
+  const { userId, nickName } = useSelector((state) => state.auth);
   console.log("route :>> ", route);
+  //   if (route.params) {
+  //     const { photo, photoName, photoLocation } = route.params;
+  //     setPosts((prevState) => [
+  //       ...prevState,
+  //       { photo, photoName, photoLocation },
+  //     ]);
+  //   }
+  // }, [route.params]);
+
+  const getAllPost = async () => {
+    const postsRef = query(collection(db, "post"));
+    onSnapshot(postsRef, (snapshot) => {
+      setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+  };
 
   useEffect(() => {
-    if (route.params) {
-      const { photo, photoName, photoLocation } = route.params;
-      setPosts((prevState) => [
-        ...prevState,
-        { photo, photoName, photoLocation },
-      ]);
-    }
-  }, [route.params]);
+    getAllPost();
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.personContainer}>
         <Image style={styles.tinyLogo} source={avatar} />
         <View style={styles.textContainer}>
-          <Text style={styles.textName}>Natali Romanova</Text>
-          <Text style={styles.textEmail}>email@example.com</Text>
+          <Text style={styles.textName}>{nickName}</Text>
+          {/* <Text style={styles.textEmail}>{userId}</Text> */}
         </View>
       </View>
       <View style={styles.contentContainer}>
@@ -88,6 +103,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 32,
+    paddingBottom: 32,
     backgroundColor: "#fff",
   },
   tinyLogo: {
@@ -119,8 +135,9 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     alignItems: "center",
-    marginTop: 24,
-    marginBottom: 24,
+    marginTop: 16,
+    paddingBottom: 24,
+    width: "100%",
   },
 
   contentTitle: {

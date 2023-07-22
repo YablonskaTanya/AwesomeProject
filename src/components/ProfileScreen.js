@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,176 +8,124 @@ import {
   ImageBackground,
 } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
-
 import {
   MaterialIcons,
   SimpleLineIcons,
   AntDesign,
   FontAwesome,
 } from "@expo/vector-icons";
-import image from "../../assets/images/rectangle.png";
-import sea from "../../assets/images/sea.png";
-import house from "../../assets/images/house.png";
 import ImageBG from "../../assets/images/ImageBG.png";
 import avatar from "../../assets/images/avatar.png";
-
+import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { ScrollView } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
+import { logOut } from "../../redux/auth/authOperations";
+
+import { useDispatch, useSelector } from "react-redux";
+import { db } from "../../firebase/config";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
 
+  const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
+  const { userId, nickName } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    const getUserPost = async () => {
+      const postsRef = collection(db, "post");
+      const queryRef = query(postsRef, where("userId", "==", userId));
+
+      const unsubscribe = onSnapshot(queryRef, (snapshot) => {
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPosts(data);
+      });
+
+      return () => unsubscribe();
+    };
+
+    getUserPost();
+  }, [userId]);
+
+  const singOut = () => {
+    dispatch(logOut());
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <ImageBackground source={ImageBG} style={styles.image}>
-          <View style={styles.formContainer}>
-            <TouchableOpacity
-              style={styles.logoutBtn}
-              onPress={() => navigation.navigate("LoginScreen")}
-            >
-              <MaterialIcons name="logout" size={24} color="#BDBDBD" />
+      <ImageBackground source={ImageBG} style={styles.image}>
+        <View style={styles.formContainer}>
+          <TouchableOpacity
+            style={styles.logoutBtn}
+            onPress={singOut}
+            onPressOut={() => navigation.navigate("LoginScreen")}
+          >
+            <MaterialIcons name="logout" size={24} color="#BDBDBD" />
+          </TouchableOpacity>
+          <View style={styles.avatarContainer}>
+            <View style={styles.avatarLogo}>
+              <Image style={styles.avatar} source={avatar} />
+            </View>
+            <TouchableOpacity style={styles.closeBtn}>
+              <AntDesign name="closecircleo" size={25} color="#E8E8E8" />
             </TouchableOpacity>
-            <View style={styles.avatarContainer}>
-              <View style={styles.avatarLogo}>
-                <Image style={styles.avatar} source={avatar} />
-              </View>
-              <TouchableOpacity style={styles.closeBtn}>
-                <AntDesign name="closecircleo" size={25} color="#E8E8E8" />
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.title}>Natali Romanova</Text>
-            <View style={styles.contentContainer}>
-              <View>
-                <Image style={styles.contentImage} source={image} />
-                <Text style={styles.contentTitle}>Ліс</Text>
-                <View style={styles.feedbackContainer}>
-                  <View style={styles.feedbackContainerLeftEl}>
-                    <View style={styles.feedbackContainerEl}>
-                      <TouchableOpacity>
-                        <FontAwesome
-                          name="comment-o"
-                          size={24}
-                          color="#FF6C00"
-                        />
-                      </TouchableOpacity>
-                      <Text>8</Text>
-                    </View>
-                    <View style={styles.feedbackContainerEl}>
-                      <TouchableOpacity>
-                        <AntDesign name="like2" size={24} color="#FF6C00" />
-                      </TouchableOpacity>
-                      <Text>153</Text>
-                    </View>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.feedbackContainerEl,
-                      styles.localionPosition,
-                    ]}
-                  >
-                    <TouchableOpacity>
-                      <SimpleLineIcons
-                        style={styles.locationIcon}
-                        name="location-pin"
-                        size={24}
-                        color="#BDBDBD"
-                      />
-                    </TouchableOpacity>
-                    <Text style={styles.locationIconTitle}>Ukraine</Text>
-                  </View>
-                </View>
-              </View>
-              <View>
-                <Image style={styles.contentImage} source={sea} />
-                <Text style={styles.contentTitle}>Захід на Чорному морі</Text>
-                <View style={styles.feedbackContainer}>
-                  <View style={styles.feedbackContainerLeftEl}>
-                    <View style={styles.feedbackContainerEl}>
-                      <TouchableOpacity>
-                        <FontAwesome
-                          name="comment-o"
-                          size={24}
-                          color="#FF6C00"
-                        />
-                      </TouchableOpacity>
-                      <Text>3</Text>
-                    </View>
-                    <View style={styles.feedbackContainerEl}>
-                      <TouchableOpacity>
-                        <AntDesign name="like2" size={24} color="#FF6C00" />
-                      </TouchableOpacity>
-                      <Text>200</Text>
-                    </View>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.feedbackContainerEl,
-                      styles.localionPosition,
-                    ]}
-                  >
-                    <TouchableOpacity>
-                      <SimpleLineIcons
-                        style={styles.locationIcon}
-                        name="location-pin"
-                        size={24}
-                        color="#BDBDBD"
-                      />
-                    </TouchableOpacity>
-                    <Text style={styles.locationIconTitle}>Ukraine</Text>
-                  </View>
-                </View>
-              </View>
-              <View>
-                <Image style={styles.contentImage} source={house} />
-                <Text style={styles.contentTitle}>
-                  Старий будиночок у Венеції
-                </Text>
-                <View style={styles.feedbackContainer}>
-                  <View style={styles.feedbackContainerLeftEl}>
-                    <View style={styles.feedbackContainerEl}>
-                      <TouchableOpacity>
-                        <FontAwesome
-                          name="comment-o"
-                          size={24}
-                          color="#FF6C00"
-                        />
-                      </TouchableOpacity>
-                      <Text>50</Text>
-                    </View>
-                    <View style={styles.feedbackContainerEl}>
-                      <TouchableOpacity>
-                        <AntDesign name="like2" size={24} color="#FF6C00" />
-                      </TouchableOpacity>
-                      <Text>200</Text>
-                    </View>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.feedbackContainerEl,
-                      styles.localionPosition,
-                    ]}
-                  >
-                    <TouchableOpacity>
-                      <SimpleLineIcons
-                        style={styles.locationIcon}
-                        name="location-pin"
-                        size={24}
-                        color="#BDBDBD"
-                      />
-                    </TouchableOpacity>
-                    <Text style={styles.locationIconTitle}>Italy</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
           </View>
-        </ImageBackground>
-      </ScrollView>
+
+          <Text style={styles.title}>{nickName}</Text>
+
+          <FlatList
+            data={posts}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={styles.contentContainer}>
+                <View>
+                  <Image
+                    style={styles.contentImage}
+                    source={{ uri: item.photo }}
+                  />
+                  <Text style={styles.contentTitle}>{item.photoName}</Text>
+                  <View style={styles.feedbackContainer}>
+                    <View style={styles.feedbackContainerLeftEl}>
+                      <View style={styles.feedbackContainerEl}>
+                        <TouchableOpacity>
+                          <FontAwesome
+                            name="comment-o"
+                            size={24}
+                            color="#FF6C00"
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+
+                    <View
+                      style={[
+                        styles.feedbackContainerEl,
+                        styles.localionPosition,
+                      ]}
+                    >
+                      <TouchableOpacity>
+                        <SimpleLineIcons
+                          style={styles.locationIcon}
+                          name="location-pin"
+                          size={24}
+                          color="#BDBDBD"
+                        />
+                      </TouchableOpacity>
+                      <Text style={styles.locationIconTitle}>
+                        {item.photoLocation}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            )}
+          />
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -205,11 +153,12 @@ const styles = StyleSheet.create({
     marginTop: 180,
     backgroundColor: "#fff",
     width: "100%",
+    minHeight: "80%",
 
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     paddingTop: 80,
-    paddingBottom: 124,
+    paddingBottom: 16,
   },
   avatarContainer: {
     position: "absolute",
@@ -217,14 +166,21 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 16,
-    top: "-6%",
+    top: "-8%",
     left: "35%",
   },
+
   contentContainer: {
-    // height: 240,
     borderRadius: 8,
     alignItems: "center",
     gap: 16,
+  },
+  contentImage: {
+    width: 350,
+    height: 200,
+    borderRadius: 8,
+    backgroundColor: "aqua",
+    marginTop: 16,
   },
 
   closeBtn: {
@@ -250,7 +206,7 @@ const styles = StyleSheet.create({
   feedbackContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 8,
+    marginTop: 12,
   },
   feedbackContainerEl: {
     flexDirection: "row",
