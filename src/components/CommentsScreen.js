@@ -1,136 +1,133 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
-  ScrollView,
   Image,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Platform,
-  Keyboard,
-  KeyboardAvoidingView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import sea from "../../assets/images/sea.png";
-import ellips1 from "../../assets/images/ellipse1.png";
-import ellips2 from "../../assets/images/ellipse2.png";
 import { AntDesign } from "@expo/vector-icons";
+import { db } from "../../firebase/config";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  addDoc,
+} from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { FlatList } from "react-native-gesture-handler";
 
-const CommentsScreen = () => {
+const CommentsScreen = ({ route }) => {
   const navigation = useNavigation();
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState("");
+
+  const { nickName } = useSelector((state) => state.auth);
+  const { postId, photo } = route.params;
+  console.log("photo :>> ", photo);
+  console.log("postId :>> ", postId);
+  useEffect(() => {
+    const commentsRef = query(
+      collection(db, "comments"),
+      where("postId", "==", postId)
+    );
+    const unsubscribe = onSnapshot(commentsRef, (snapshot) => {
+      setComments(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+
+    return () => unsubscribe();
+  }, [postId]);
+
+  const addComment = async () => {
+    if (commentText.trim() === "") {
+      return;
+    }
+
+    try {
+      const commentData = {
+        postId,
+        comment: commentText,
+        author: nickName,
+        timestamp: new Date().toISOString().substring(0, 10),
+      };
+
+      await addDoc(collection(db, "comments"), commentData);
+
+      setCommentText("");
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.mainContainer}>
-            <View style={styles.imageContainer}>
-              <Image style={styles.image} source={sea} />
-            </View>
-            <View style={styles.commentsContainer}>
-              <View
-                style={[styles.commentContainer, styles.commentContainerRevers]}
-              >
-                <View
-                  style={[styles.textContainer, styles.textContainerRevers]}
-                >
-                  <Text style={styles.text}>
-                    Really love your most recent photo. I’ve been trying to
-                    capture the same thing for a few months and would love some
-                    tips!
-                  </Text>
-                  <Text style={styles.textData}>09 червня, 2020 | 08:40</Text>
-                </View>
-
-                <Image style={styles.Image} source={ellips2} />
-              </View>
-              <View style={styles.commentContainer}>
-                <View style={styles.textContainer}>
-                  <Text style={styles.text}>
-                    A fast 50mm like f1.8 would help with the bokeh. I’ve been
-                    using primes as they tend to get a bit sharper images.
-                  </Text>
-                  <Text style={styles.textData}>09 червня, 2020 | 09:14</Text>
-                </View>
-                <Image style={styles.Image} source={ellips1} />
-              </View>
-              <View
-                style={[styles.commentContainer, styles.commentContainerRevers]}
-              >
-                <View
-                  style={[styles.textContainer, styles.textContainerRevers]}
-                >
-                  <Text style={styles.text}>
-                    Thank you! That was very helpful!
-                  </Text>
-                  <Text style={styles.textData}>09 червня, 2020 | 09:20</Text>
-                </View>
-                <Image style={styles.Image} source={ellips2} />
-              </View>
+      <Image source={{ uri: photo }} style={styles.image} />
+      <FlatList
+        data={comments}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.commentsContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>{item.author}</Text>
+              <Text style={styles.text}>{item.comment}</Text>
+              <Text style={styles.textData}>{item.timestamp}</Text>
             </View>
           </View>
-        </TouchableWithoutFeedback>
-      </ScrollView>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={[styles.input, styles.inputPad]}
-            placeholder="Коментувати..."
+        )}
+      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={[styles.input, styles.inputPad]}
+          placeholder="Коментувати..."
+          value={commentText}
+          onChangeText={setCommentText}
+        />
 
-            // onFocus={() => setIsShowKeyboard(true)}
-          />
-
-          <TouchableOpacity style={styles.arrowContainer}>
-            <AntDesign name="arrowup" size={24} color="#fff" />
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
+        <TouchableOpacity onPress={addComment} style={styles.arrowContainer}>
+          <AntDesign name="arrowup" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
+//
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
     paddingTop: 16,
     paddingBottom: 16,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
-  scrollView: {
-    backgroundColor: "#fff",
-  },
-  mainContainer: {
-    alignItems: "center",
 
-    gap: 32,
+  image: {
+    width: 350,
+    height: 200,
+    borderRadius: 8,
+    backgroundColor: "aqua",
+    marginTop: 16,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: 16,
   },
   textContainer: {
-    width: "85%",
-    padding: 16,
+    padding: 8,
     backgroundColor: "#F6F6F6",
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
     borderTopLeftRadius: 5,
+    marginTop: 16,
+    marginLeft: 16,
     gap: 8,
   },
-  textContainerRevers: {
-    borderTopRightRadius: 5,
-    borderTopLeftRadius: 0,
-  },
   commentsContainer: {
-    gap: 32,
-    width: "80%",
-  },
-  commentContainer: {
-    flexDirection: "row",
     gap: 16,
-  },
-  commentContainerRevers: {
-    flexDirection: "row-reverse",
+    minWidth: 200,
+    maxWidth: 300,
   },
   text: {
     fontSize: 13,
@@ -149,8 +146,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F6F6",
   },
   inputContainer: {
+    width: "100%",
     alignItems: "center",
-    // justifyContent: "flex-start",
+    marginTop: 16,
   },
   arrowContainer: {
     position: "absolute",

@@ -89,12 +89,6 @@ const CreatePostsScreen = () => {
     setPhotoName(""), setPhotoLocation(""), setPhoto(null);
   };
 
-  // {
-  //   photo,
-  //   photoName,
-  //   photoLocation,
-  // }
-
   const uploadPhotoToServer = async () => {
     const response = await fetch(photo);
     const file = await response.blob();
@@ -124,13 +118,6 @@ const CreatePostsScreen = () => {
   const uploadPostToDatabase = async (post) => {
     await addDoc(collection(db, "post"), post);
   };
-
-  // const getAllPost = async () => {
-  //   const postsRef = query(collection(db, "post"));
-  //   onSnapshot(postsRef, (snapshot) => {
-  //     setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //   });
-  // };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -189,7 +176,6 @@ const CreatePostsScreen = () => {
                   name="location-pin"
                   size={24}
                   color="#BDBDBD"
-                  // onPress={() => navigation.navigate("ProfileScreen")}
                 />
                 <TextInput
                   style={[styles.input, styles.inputPad]}

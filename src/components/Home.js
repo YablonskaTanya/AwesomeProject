@@ -10,7 +10,6 @@ import ProfileScreen from "./ProfileScreen";
 import CommentsScreen from "./CommentsScreen";
 import MapScreen from "./MapScreen";
 import { useDispatch, useSelector } from "react-redux";
-// import { useDispatch, useSelector } from "react-redux";
 import { authStateChangeUser, logOut } from "../../redux/auth/authOperations";
 
 const Tabs = createBottomTabNavigator();
@@ -35,11 +34,6 @@ const Home = () => {
   if (!stateChange) {
     return (
       <Tabs.Navigator>
-        {/* <Tabs.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
-        /> */}
         <Tabs.Screen
           name="Registration"
           component={RegistrationScreen}

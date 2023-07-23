@@ -1,5 +1,4 @@
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 import RegistrationScreen from "./src/components/RegistrationScreen";
 import LoginScreen from "./src/components/LoginScreen";
 import Home from "./src/components/Home";

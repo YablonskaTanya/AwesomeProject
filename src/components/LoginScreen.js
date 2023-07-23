@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 import {
-  Button,
-  Image,
   ImageBackground,
   Keyboard,
   KeyboardAvoidingView,
@@ -102,7 +100,6 @@ export default LoginScreen = () => {
                   placeholder="Адреса електронної пошти"
                   onFocus={() => setIsEmailFocused(true)}
                   onBlur={() => setIsEmailFocused(false)}
-                  // onFocus={() => setIsShowKeyboard(true)}
                 />
                 {emailError ? (
                   <Text style={styles.error}>{emailError}</Text>
@@ -125,7 +122,6 @@ export default LoginScreen = () => {
                     placeholder="Пароль"
                     onFocus={() => setIsPasswordFocused(true)}
                     onBlur={() => setIsPasswordFocused(false)}
-                    // onFocus={() => setIsShowKeyboard(true)}
                   />
                   {passwordError ? (
                     <Text style={styles.error}>{passwordError}</Text>

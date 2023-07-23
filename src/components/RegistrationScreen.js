@@ -74,10 +74,6 @@ export default RegistrationScreen = () => {
     setShowPassword(!showPassword);
   };
 
-  const onRegister = () => {
-    console.log(`login: ${login}, email: ${email}, password: ${password}`);
-  };
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -89,9 +85,7 @@ export default RegistrationScreen = () => {
             }}
           >
             <View style={styles.avatarContainer}>
-              <View style={styles.avatarLogo}>
-                {/* <Image style={styles.tinyLogo} source={avatar} /> */}
-              </View>
+              <View style={styles.avatarLogo}></View>
               <TouchableOpacity style={styles.addBtn}>
                 <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
               </TouchableOpacity>
@@ -113,7 +107,6 @@ export default RegistrationScreen = () => {
                 placeholder="Логін"
                 onFocus={() => setIsLoginFocused(true)}
                 onBlur={() => setIsLoginFocused(false)}
-                // onFocus={() => setIsShowKeyboard(true)}
               />
               <TextInput
                 style={{
@@ -128,7 +121,6 @@ export default RegistrationScreen = () => {
                 placeholder="Адреса електронної пошти"
                 onFocus={() => setIsEmailFocused(true)}
                 onBlur={() => setIsEmailFocused(false)}
-                // onFocus={() => setIsShowKeyboard(true)}
               />
               {emailError ? (
                 <Text style={styles.error}>{emailError}</Text>
@@ -151,7 +143,6 @@ export default RegistrationScreen = () => {
                   placeholder="Пароль"
                   onFocus={() => setIsPasswordFocused(true)}
                   onBlur={() => setIsPasswordFocused(false)}
-                  // onFocus={() => setIsShowKeyboard(true)}
                 />
                 {passwordError ? (
                   <Text style={styles.error}>{passwordError}</Text>

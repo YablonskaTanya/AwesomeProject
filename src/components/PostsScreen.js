@@ -17,14 +17,6 @@ export default PostsScreen = ({ route }) => {
   const [posts, setPosts] = useState([]);
   const { userId, nickName } = useSelector((state) => state.auth);
   console.log("route :>> ", route);
-  //   if (route.params) {
-  //     const { photo, photoName, photoLocation } = route.params;
-  //     setPosts((prevState) => [
-  //       ...prevState,
-  //       { photo, photoName, photoLocation },
-  //     ]);
-  //   }
-  // }, [route.params]);
 
   const getAllPost = async () => {
     const postsRef = query(collection(db, "post"));
@@ -41,9 +33,8 @@ export default PostsScreen = ({ route }) => {
     <View style={styles.container}>
       <View style={styles.personContainer}>
         <Image style={styles.tinyLogo} source={avatar} />
-        <View style={styles.textContainer}>
+        <View>
           <Text style={styles.textName}>{nickName}</Text>
-          {/* <Text style={styles.textEmail}>{userId}</Text> */}
         </View>
       </View>
       <View style={styles.contentContainer}>
